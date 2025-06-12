@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>MVP - ConectaCom</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+  :root {
+    --primary: #3366CC;
+    --accent: #FF6F61;
+    --light: #F7F9FC;
+    --dark: #1F2A44;
+    --font: 'Montserrat', sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--light);
+    color: var(--dark);
+  }
+
+  h1 { font-weight: 600; color: var(--primary); }
+
+  /* NAV TABS */
+  .nav-tabs { border-bottom: none; justify-content: center; }
+  .nav-tabs .nav-item { margin: 0 0.5rem; }
+  .nav-tabs .nav-link {
+    position: relative; display: inline-block;
+    padding: 10px 24px; border: none; border-radius: 50px;
+    background: transparent; color: var(--dark); font-weight: 500;
+    transition: background-color .3s, transform .2s, box-shadow .2s, color .3s;
+  }
+  .nav-tabs .nav-link:hover { background: rgba(51,102,204,0.1); transform: translateY(-2px); }
+  .nav-tabs .nav-link.active {
+    background: var(--primary); color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .nav-tabs .nav-link.active::after {
+    content: ''; position: absolute; bottom: -4px; left: 50%;
+    transform: translateX(-50%); width: 50%; height: 4px;
+    background: var(--accent); border-radius: 2px;
+  }
+
+  /* CARD & BUTTON */
+  .card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; transition: transform .2s; }
+  .card:hover { transform: translateY(-4px); }
+  .btn-primary, .btn-success { background: var(--primary); border: none; transition: background .2s, transform .2s; }
+  .btn-primary:hover, .btn-success:hover { background: #274b8a; transform: translateY(-1px); }
+
+  .form-control { border-radius: 6px; padding: 10px; border: 1px solid #ccc; transition: border-color .2s, box-shadow .2s; }
+  .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 0.2rem rgba(255,111,97,0.25); }
+
+  .card-img-top { width: 100%; max-height: 250px; object-fit: contain; border-radius: 8px; cursor: pointer; }
+  a.location-link { color: var(--primary); text-decoration: none; transition: color .2s; }
+  a.location-link:hover { color: var(--accent); }
+
+  /* IMAGE MODAL */
+  .modal-dialog { max-width:90vw; margin:0 auto; }
+  .modal-body { padding:0; max-height:90vh; overflow:hidden; }
+  #modalImage { display:block; margin:0 auto; max-height:calc(90vh - 2rem); width:auto; object-fit:contain; }
+
+  /* EVENT MODAL */
+  #eventModal .modal-dialog { max-width:600px; margin:1.5rem auto; }
+  #eventModal .modal-content { border-radius:12px; overflow:hidden; }
+  #eventModal .modal-header { background: var(--primary); color:#fff; border-bottom:none; padding:1rem 1.5rem; }
+  #eventModal .modal-title { font-weight:600; font-size:1.25rem; }
+  #eventModal .modal-body { flex: 1 1 auto; overflow-y: auto; padding: 1rem 1.5rem; }
+  #eventModal .modal-body .row > .col { margin-bottom:1rem; }
+  #eventModal .modal-body .mb-3 { margin-bottom:1.25rem; }
+  #eventModal .form-label { font-weight:500; }
+  #eventModal .modal-footer { padding:1rem 1.5rem; border-top:none; display:flex; justify-content:flex-end; gap:0.5rem; }
+
+  /* MAP */
+  #mapContainer { display: flex; height: 500px; }
+  #mapArea { flex: 1; position: relative; }
+  #mapIframe { width: 100%; height: 100%; border: none; border-radius: 8px; display: none; }
+  #mapPlaceholder {
+    position: absolute; top:0; left:0; right:0; bottom:0;
+    display: flex; justify-content:center; align-items:center;
+    color:#666; background:#fff; border-radius:8px;
+    padding:1rem; text-align:center;
+  }
+  #mapSidebar { width: 300px; border-left:1px solid #ddd; overflow-y:auto; background:#fff; padding:1rem; }
+  #mapSidebar .list-group-item { cursor:pointer; transition:background .2s; }
+  #mapSidebar .list-group-item:hover { background:#f7f7f7; }
+
+  /* CUSTOM CALENDAR */
+  .calendar-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .calendar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .calendar { display: grid; grid-template-columns: repeat(7,1fr); gap:5px; text-align:center; }
+  .calendar .header { font-weight:600; padding:10px 0; }
+  .calendar .day { background:#fff; border:1px solid #ddd; border-radius:6px; padding:5px; height:80px; position:relative; cursor:pointer; }
+  .calendar .day.inactive { background:#f9f9f9; color:#999; cursor:default; }
+  .calendar .date-number { font-weight:600; }
+  .calendar .dot {
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+  }
+
+  /* BUTTON SPACING IN CARDS */
+  .card .card-actions { display: flex; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
+  .card .card-actions .btn { flex: 1; }
+  </style>
+</head>
+<body>
+  <nav class="navbar bg-light">
+    <div class="container">
+      <button class="btn btn-secondary" onclick="location.href='auth.html'">Cadastrar Gestor</button>
+    </div>
+  </nav>
+
+  <!-- Image Preview Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lx">
+      <div class="modal-content bg-transparent border-0">
+        <div class="modal-body p-0 position-relative">
+          <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+          <img id="modalImage" src="" class="img-fluid rounded" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <h1 class="text-center mb-5">ConectaCom</h1>
+    <ul class="nav nav-tabs justify-content-center mb-4">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#listView">Lista</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#calendarView">Calendário</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#mapView">Mapa</button></li>
+    </ul>
+    <div class="tab-content">
+
+      <!-- LIST VIEW -->
+      <div class="tab-pane fade show active" id="listView">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex">
+            <input id="searchInput" class="form-control me-2" style="width:200px;" placeholder="Buscar título/data..."/>
+            <input id="managerFilter" class="form-control me-2" style="width:240px;" placeholder="ID Gestor"/>
+          </div>
+          <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#eventModal">+ Novo Evento</button>
+        </div>
+        <div id="cardsContainer" class="row"></div>
+      </div>
+
+      <!-- CALENDAR VIEW -->
+      <div class="tab-pane fade" id="calendarView">
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <button id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>
+            <h5 id="monthLabel"></h5>
+            <button id="nextMonth" class="btn btn-outline-primary btn-sm">&gt;</button>
+          </div>
+          <div class="calendar" id="calendar"></div>
+        </div>
+      </div>
+
+      <!-- MAP VIEW -->
+      <div class="tab-pane fade" id="mapView">
+        <div id="mapContainer">
+          <div id="mapArea">
+            <div id="mapPlaceholder">Clique em um evento à direita para ver sua localização no mapa</div>
+            <iframe id="mapIframe"></iframe>
+          </div>
+          <div id="mapSidebar">
+            <input id="mapSearch" class="form-control mb-3" placeholder="Pesquisar evento..."/>
+            <div id="mapSidebarList" class="list-group"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form id="eventForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Novo Evento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3 row">
+            <div class="col"><label class="form-label">CEP</label><input type="text" id="cep" class="form-control" placeholder="00000-000"/></div>
+            <div class="col"><label class="form-label">Número</label><input type="text" id="numero" class="form-control" placeholder="123"/></div>
+          </div>
+          <div class="mb-3"><label class="form-label">Endereço</label><input type="text" id="address" class="form-control" readonly/></div>
+          <div class="mb-3"><label class="form-label">Imagem (arquivo)</label><input type="file" id="imageFile" class="form-control" accept="image/*"/></div>
+          <div class="mb-3"><label class="form-label">Título</label><input type="text" id="title" class="form-control" required/></div>
+          <div class="mb-3 row">
+            <div class="col"><label class="form-label">Data</label><input type="date" id="date" class="form-control" required/></div>
+            <div class="col"><label class="form-label">Hora</label><input type="time" id="time" class="form-control" required/></div>
+          </div>
+          <div class="mb-3"><label class="form-label">ID do Gestor</label><input type="text" id="managerId" class="form-control" readonly/></div>
+          <div class="mb-3"><label class="form-label">Descrição</label><textarea id="description" class="form-control" rows="3"></textarea></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Auth Modal -->
+  <div class="modal fade" id="authModal" tabindex="-1">
+    <div class="modal-dialog"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Autenticar Remoção</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <input type="hidden" id="delEventId"/>
+        <div class="mb-3"><label>ID do Gestor</label><input id="delId" class="form-control"/></div>
+        <div class="mb-3"><label>Senha</label><input type="password" id="delPass" class="form-control"/></div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-danger" id="confirmDelete">Excluir</button><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></div>
+    </div></div>
+  </div>
+
+  <!-- Calendar Events Modal -->
+  <div class="modal fade" id="calendarEventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eventos em <span id="modalDateTitle"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="calendarCardsContainer"></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Load events
+    let events = JSON.parse(localStorage.getItem('events')||'[]').map(e=>(
+      { ...e, addedToCalendar: e.addedToCalendar || false }
+    ));
+    const users = JSON.parse(localStorage.getItem('users')||'[]');
+    const form = document.getElementById('eventForm'),
+          cardsContainer = document.getElementById('cardsContainer'),
+          searchInput = document.getElementById('searchInput'),
+          managerFilter = document.getElementById('managerFilter'),
+          mapSearch = document.getElementById('mapSearch'),
+          mapList = document.getElementById('mapSidebarList'),
+          mapIframe = document.getElementById('mapIframe'),
+          placeholder = document.getElementById('mapPlaceholder'),
+          calendarEl = document.getElementById('calendar');
+
+    // Month navigation state
+    let currentYear, currentMonth;
+    const monthLabel = document.getElementById('monthLabel'),
+          prevBtn     = document.getElementById('prevMonth'),
+          nextBtn     = document.getElementById('nextMonth');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set logged-in manager
+      document.getElementById('managerId').value = localStorage.getItem('currentUser');
+
+      // Initialize current month/year
+      const now = new Date();
+      currentYear  = now.getFullYear();
+      currentMonth = now.getMonth();
+
+      // Initial render
+      renderAll();
+
+      // Month navigation handlers
+      prevBtn.addEventListener('click', () => {
+        if (currentMonth === 0) {
+          currentMonth = 11; currentYear--;
+        } else {
+          currentMonth--;
+        }
+        renderAll();
+      });
+      nextBtn.addEventListener('click', () => {
+        if (currentMonth === 11) {
+          currentMonth = 0; currentYear++;
+        } else {
+          currentMonth++;
+        }
+        renderAll();
+      });
+
+      // Map sidebar
+      document.querySelector('[data-bs-target="#mapView"]').addEventListener('shown.bs.tab', () => {
+        renderSidebar();
+        placeholder.style.display = 'flex';
+        mapIframe.style.display = 'none';
+      });
+      mapSearch.addEventListener('input', renderSidebar);
+
+      // CEP lookup
+      document.getElementById('cep').addEventListener('blur', async () => {
+        const cep = document.getElementById('cep').value.replace(/\D/g, '');
+        if (cep.length === 8) {
+          const d = await (await fetch(`https://viacep.com.br/ws/${cep}/json/`)).json();
+          if (!d.erro) {
+            document.getElementById('address').value = `${d.logradouro}, ${d.bairro}, ${d.localidade}-${d.uf}`;
+          }
+        }
+      });
+
+      // Image preview modal
+      const imgModal = document.getElementById('imageModal');
+      imgModal.addEventListener('show.bs.modal', event => {
+        document.getElementById('modalImage').src = event.relatedTarget.getAttribute('data-image-src');
+      });
+    });
+
+    function saveAll() {
+      localStorage.setItem('events', JSON.stringify(events));
+      renderAll();
+    }
+
+    function renderAll() {
+      renderCards();
+      renderCalendar();
+    }
+
+    function renderCards() {
+      cardsContainer.innerHTML = '';
+      events.filter(ev =>
+        (ev.title.toLowerCase().includes(searchInput.value.toLowerCase()) || ev.date.includes(searchInput.value)) &&
+        ev.managerId.toLowerCase().includes(managerFilter.value.toLowerCase())
+      ).forEach(ev => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6';
+        const imgHTML = ev.imageData
+          ? `<img src="${ev.imageData}" class="card-img-top mb-3" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-src="${ev.imageData}"/>`
+          : '';
+        col.innerHTML = `
+          <div class="card p-3">
+            ${imgHTML}
+            <h5 class="card-title">${ev.title}</h5>
+            <p class="mb-1"><strong>Data:</strong> ${ev.date} ${ev.time}</p>
+            <p class="mb-1"><strong>Local:</strong>
+              <a href="#" class="location-link" onclick="focusEvent('${ev.id}')">${ev.fullAddress||'—'}</a>
+            </p>
+            <p class="mb-1"><strong>Gestor:</strong> ${ev.managerId}</p>
+            <p>${ev.description}</p>
+            <div class="card-actions">
+              <button type="button" class="btn btn-outline-danger btn-sm" onclick="askDelete('${ev.id}')">Excluir</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="toggleCalendar('${ev.id}')">${ev.addedToCalendar ? 'Remover do calendário' : 'Adicionar ao calendário'}</button>
+            </div>
+          </div>`;
+        cardsContainer.appendChild(col);
+      });
+    }
+
+    function toggleCalendar(id) {
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+      ev.addedToCalendar = !ev.addedToCalendar;
+      saveAll();
+    }
+
+    function renderCalendar() {
+      calendarEl.innerHTML = '';
+
+      // Atualiza label de mês/ano
+      const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+      monthLabel.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+
+      // Cabeçalhos de dias da semana
+      ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d => {
+        const hd = document.createElement('div');
+        hd.className = 'day header';
+        hd.textContent = d;
+        calendarEl.appendChild(hd);
+      });
+
+      // Slots vazios antes do primeiro dia
+      for (let i = 0; i < firstDay; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'day inactive';
+        calendarEl.appendChild(cell);
+      }
+
+      // Dias do mês
+      for (let date = 1; date <= daysInMonth; date++) {
+        const cell = document.createElement('div');
+        cell.className = 'day';
+        const isoDate = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
+        cell.dataset.date = isoDate;
+        cell.innerHTML = `<div class="date-number">${date}</div>`;
+        const evs = events.filter(e => e.addedToCalendar && e.date === isoDate);
+        if (evs.length) {
+          const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
+        }
+        cell.addEventListener('click', () => { if (evs.length) showCalendarEvents(isoDate); });
+        calendarEl.appendChild(cell);
+      }
+    }
+
+    function showCalendarEvents(date) {
+      const evs = events.filter(e => e.addedToCalendar && e.date === date);
+      const container = document.getElementById('calendarCardsContainer');
+      container.innerHTML = '';
+      evs.forEach(ev => {
+        const card = document.createElement('div'); card.className = 'card mb-3';
+        const row = document.createElement('div'); row.className = 'row g-0';
+        const imgCol = document.createElement('div'); imgCol.className = 'col-md-4';
+        imgCol.innerHTML = ev.imageData ? `<img src="${ev.imageData}" class="img-fluid rounded-start"/>` : '';
+        const bodyCol = document.createElement('div'); bodyCol.className = 'col-md-8';
+        bodyCol.innerHTML = `
+          <div class="card-body">
+            <h5 class="card-title">${ev.title}</h5>
+            <p class="card-text"><strong>Data:</strong> ${ev.date}</p>
+            <p class="card-text"><strong>Hora:</strong> ${ev.time}</p>
+            ${ev.description ? `<p class="card-text"><strong>Descrição:</strong> ${ev.description}</p>` : ''}
+          </div>`;
+        row.append(imgCol, bodyCol); card.appendChild(row); container.appendChild(card);
+      });
+      document.getElementById('modalDateTitle').textContent = date;
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('calendarEventModal')).show();
+    }
+
+    function renderSidebar() {
+      mapList.innerHTML = '';
+      events.filter(ev => ev.title.toLowerCase().includes(mapSearch.value.toLowerCase()))
+        .forEach(ev => {
+          const item = document.createElement('div'); item.className = 'list-group-item d-flex align-items-center';
+          item.innerHTML = `
+            ${ev.imageData ? `<img src="${ev.imageData}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;" class="me-3"/>` : ''}
+            <div><strong>${ev.title}</strong><br/><small>${ev.date} ${ev.time}</small></div>`;
+          item.onclick = () => focusEvent(ev.id);
+          mapList.appendChild(item);
+        });
+    }
+
+    function focusEvent(id) {
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+      const q = encodeURIComponent(ev.fullAddress + ', Londrina-PR, Brasil');
+      mapIframe.src = `https://maps.google.com/maps?q=${q}&output=embed`;
+      placeholder.style.display = 'none';
+      mapIframe.style.display = 'block';
+    }
+
+    function askDelete(id) {
+      document.getElementById('delEventId').value = id;
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).show();
+    }
+
+    document.getElementById('confirmDelete').addEventListener('click', () => {
+      const id = document.getElementById('delId').value.trim();
+      const pass = document.getElementById('delPass').value;
+      const u = users.find(u => u.id === id && u.pass === pass);
+      if (!u) return alert('Credenciais inválidas');
+      const eid = document.getElementById('delEventId').value;
+      const ev = events.find(e => e.id === eid);
+      if (ev.managerId !== id) return alert('Sem autorização');
+      events = events.filter(e => e.id !== eid);
+      saveAll();
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = Date.now().toString();
+      let imageData = null;
+      if (document.getElementById('imageFile').files.length) {
+        imageData = await new Promise(r => {
+          const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(document.getElementById('imageFile').files[0]);
+        });
+      }
+      const addr = document.getElementById('address').value;
+      const num = document.getElementById('numero').value.trim();
+      const fullAddress = num ? `${addr}, ${num}` : addr;
+      let lat, lng;
+      try {
+        const query = `${fullAddress}, Londrina-PR, Brasil`;
+        const data = await (await fetch(`https://nominatim.openstreetmap.org/search?format=json&countrycodes=br&limit=1&q=${encodeURIComponent(query)}`)).json();
+        if (data.length) { lat = parseFloat(data[0].lat); lng = parseFloat(data[0].lon); }
+        else { lat = -23.30445; lng = -51.16211; }
+      } catch {
+        lat = -23.30445; lng = -51.16211;
+      }
+      const ev = { id, imageData, title: document.getElementById('title').value.trim(), date: document.getElementById('date').value, time: document.getElementById('time').value, fullAddress, lat, lng, managerId: document.getElementById('managerId').value, description: document.getElementById('description').value.trim(), addedToCalendar: false };
+      events.push(ev);
+      saveAll();
+      form.reset();
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('eventModal')).hide();
+    });
+
+    searchInput.addEventListener('input', renderCards);
+    managerFilter.addEventListener('input', renderCards);
+  </script>
+</body>
+</html>
