@@ -42,11 +42,9 @@
         </div>
         <button class="btn btn-primary w-100" id="btnLogin">Entrar</button>
         <!-- Entrar como convidado -->
-        <a href="index.html"
-           class="btn btn-outline-secondary w-100 mt-3"
-           id="btnLoginSemCadastro">
+        <button class="btn btn-outline-secondary w-100 mt-3" id="btnLoginSemCadastro">
           Entrar como convidado
-        </a>
+        </button>
       </div>
       <!-- CADASTRO -->
       <div class="tab-pane fade" id="register" role="tabpanel">
@@ -69,6 +67,7 @@
     function getUsers() { return JSON.parse(localStorage.getItem('users')||'[]'); }
     function saveUsers(u) { localStorage.setItem('users', JSON.stringify(u)); }
 
+    // Cadastro de novo gestor
     document.getElementById('btnRegister').addEventListener('click', () => {
       const name = document.getElementById('regName').value.trim();
       const pass = document.getElementById('regPass').value;
@@ -82,6 +81,7 @@
       document.getElementById('loginId').value = id;
     });
 
+    // Login com credenciais
     document.getElementById('btnLogin').addEventListener('click', () => {
       const id = document.getElementById('loginId').value.trim();
       const pass = document.getElementById('loginPass').value;
@@ -92,6 +92,12 @@
       } else {
         alert('ID ou senha inválidos');
       }
+    });
+
+    // Login como convidado
+    document.getElementById('btnLoginSemCadastro').addEventListener('click', () => {
+      localStorage.setItem('currentUser', 'convidado');
+      location.href = 'index.html';
     });
   </script>
 </body>
