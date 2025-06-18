@@ -264,6 +264,14 @@
       // Set logged-in manager
       document.getElementById('managerId').value = localStorage.getItem('currentUser');
 
+
+      const currentUser = localStorage.getItem('currentUser');
+     if (!currentUser) {
+  alert("Você precisa estar logado para criar eventos.");
+  location.href = 'auth.html'; // ou qualquer rota de login
+}
+document.getElementById('managerId').value = currentUser;
+
       // Initialize current month/year
       const now = new Date();
       currentYear  = now.getFullYear();
@@ -468,9 +476,18 @@
     });
 
     form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const id = Date.now().toString();
-      let imageData = null;
+  e.preventDefault();
+  // Validação do ID do gestor
+  const managerId = document.getElementById('managerId').value.trim();
+  if (!managerId) {
+    return alert("O campo ID do Gestor é obrigatório.");
+  }
+
+  const gestorExiste = users.find(u => u.id === managerId);
+  if (!gestorExiste) {
+    return alert("ID do Gestor não encontrado. Por favor, cadastre primeiro.");
+  }
+  const id = Date.now().toString();
       if (document.getElementById('imageFile').files.length) {
         imageData = await new Promise(r => {
           const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(document.getElementById('imageFile').files[0]);
