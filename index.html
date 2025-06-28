@@ -116,6 +116,7 @@
       <button class="btn btn-secondary" onclick="location.href='auth.html'">Cadastrar Gestor</button>
     </div>
   </nav>
+  
 
   <!-- Image Preview Modal -->
   <div class="modal fade" id="imageModal" tabindex="-1">
@@ -135,6 +136,12 @@
       <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#listView">Lista</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#calendarView">Calendário</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#mapView">Mapa</button></li>
+        <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#workshopsView">Workshops</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#professionalsView">Profissionais</button>
+  </li>
     </ul>
     <div class="tab-content">
 
@@ -175,6 +182,139 @@
           </div>
         </div>
       </div>
+           <!-- Workshops -->
+<div class="tab-pane fade" id="workshopsView">
+  <div class="container py-4">
+    <h3 class="mb-3">Workshops</h3>
+    <div class="row">
+      <!-- Tricô (aberto) -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-3">
+          <img src="imagens/trico.png" class="card-img-top mb-3" alt="Tricô">
+          <h5 class="card-title">Workshop de Tricô</h5>
+          <p>Aprenda pontos básicos e projetos simples de tricô.</p>
+          <button class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#workshopModal"
+                  data-type="Tricô">
+            Inscrever
+          </button>
+        </div>
+      </div>
+      <!-- Pintura (aberto) -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-3">
+          <img src="imagens/pintura.png" class="card-img-top mb-3" alt="Pintura">
+          <h5 class="card-title">Workshop de Pintura</h5>
+          <p>Técnicas de aquarela e pintura em tela.</p>
+          <button class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#workshopModal"
+                  data-type="Pintura">
+            Inscrever
+          </button>
+        </div>
+      </div>
+      <!-- Natação (aberto) -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-3">
+          <img src="imagens/natação.png" class="card-img-top mb-3" alt="Natação">
+          <h5 class="card-title">Workshop de Natação (Presencial)</h5>
+          <p>Aulas de natação adaptadas para 50+.</p>
+          <button class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#workshopModal"
+                  data-type="Natação">
+            Inscrever
+          </button>
+        </div>
+      </div>
+      <!-- Jardinagem (fechado) -->
+<div class="col-md-4 mb-4">
+  <div class="card p-3 position-relative">
+    <img src="imagens/jardinagem.png" class="card-img-top mb-3" alt="Jardinagem">
+    <h5 class="card-title">Workshop de Jardinagem</h5>
+    <p>Montagem de hortinha em vasos e cuidados básicos.</p>
+    <div class="mb-2">
+      <div class="progress">
+        <div id="bar-jardinagem" class="progress-bar" role="progressbar" style="width:0%"></div>
+      </div>
+      <small><span id="count-jardinagem">0</span>/10 interessados</small>
+    </div>
+    <button id="btn-jardinagem" class="btn btn-outline-primary btn-sm">Tenho Interesse</button>
+  </div>
+</div>
+
+<!-- Fotografia (fechado) -->
+<div class="col-md-4 mb-4">
+  <div class="card p-3 position-relative">
+    <img src="imagens/fotografia.png" class="card-img-top mb-3" alt="Fotografia">
+    <h5 class="card-title">Workshop de Fotografia</h5>
+    <p>Fundamentos de composição, luz e enquadramento.</p>
+    <div class="mb-2">
+      <div class="progress">
+        <div id="bar-fotografia" class="progress-bar" role="progressbar" style="width:0%"></div>
+      </div>
+      <small><span id="count-fotografia">0</span>/10 interessados</small>
+    </div>
+    <button id="btn-fotografia" class="btn btn-outline-primary btn-sm">Tenho Interesse</button>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Profissionais -->
+      <div class="tab-pane fade" id="professionalsView">
+        <div class="container py-4">
+          <h3 class="mb-3">Profissionais</h3>
+          <div class="row">
+            <!-- Nutricionista -->
+            <div class="col-md-4">
+              <div class="card p-3">
+                <h5 class="card-title">Nutricionista</h5>
+                <p>Orientação alimentar específica para a terceira idade.</p>
+                <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#professionalModal"
+                        data-type="Nutricionista">
+                  Contratar
+                </button>
+              </div>
+            </div>
+            <!-- Fisioterapeuta -->
+            <div class="col-md-4">
+              <div class="card p-3">
+                <h5 class="card-title">Fisioterapeuta</h5>
+                <p>Exercícios e reabilitação motora.</p>
+                <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#professionalModal"
+                        data-type="Fisioterapeuta">
+                  Contratar
+                </button>
+              </div>
+            </div>
+            <!-- Geriatra -->
+            <div class="col-md-4">
+              <div class="card p-3">
+                <h5 class="card-title">Geriatra</h5>
+                <p>Acompanhamento de saúde geral do idoso.</p>
+                <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#professionalModal"
+                        data-type="Geriatra">
+                  Contratar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -486,7 +626,7 @@ document.getElementById('managerId').value = currentUser;
   const gestorExiste = users.find(u => u.id === managerId);
   if (!gestorExiste) {
     return alert("ID do Gestor não encontrado. Por favor, cadastre primeiro.");
-  }
+  } 
   const id = Date.now().toString();
       if (document.getElementById('imageFile').files.length) {
         imageData = await new Promise(r => {
@@ -514,6 +654,69 @@ document.getElementById('managerId').value = currentUser;
 
     searchInput.addEventListener('input', renderCards);
     managerFilter.addEventListener('input', renderCards);
+
+  // mínimo para abrir turma
+const MIN_INTEREST = 10;
+
+// carrega ou inicializa
+const interest = {
+  jardinagem: parseInt(localStorage.getItem('int-jardinagem')) || 0,
+  fotografia: parseInt(localStorage.getItem('int-fotografia')) || 0
+};
+
+// atualiza UI (barra, contador, texto do botão)
+function renderInterest(key) {
+  const cnt   = interest[key];
+  const pct   = Math.min(100, (cnt / MIN_INTEREST) * 100);
+  const btn   = document.getElementById(`btn-${key}`);
+  const count = document.getElementById(`count-${key}`);
+  const bar   = document.getElementById(`bar-${key}`);
+  const clicked = localStorage.getItem(`clicked-${key}`) === '1';
+
+  count.textContent = cnt;
+  bar.style.width  = pct + '%';
+
+  if (clicked) {
+    btn.textContent = 'Retirar Interesse';
+    btn.classList.remove('btn-outline-primary');
+    btn.classList.add('btn-primary');
+  } else {
+    btn.textContent = 'Tenho Interesse';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline-primary');
+  }
+}
+
+// ao clicar, toggle interesse
+function toggleInterest(key) {
+  const isClicked = localStorage.getItem(`clicked-${key}`) === '1';
+
+  if (isClicked) {
+    // retirar interesse
+    interest[key] = Math.max(0, interest[key] - 1);
+    localStorage.setItem(`clicked-${key}`, '0');
+  } else {
+    // adicionar interesse
+    interest[key] = Math.min(MIN_INTEREST, interest[key] + 1);
+    localStorage.setItem(`clicked-${key}`, '1');
+  }
+
+  // salva novo valor
+  localStorage.setItem(`int-${key}`, interest[key]);
+  renderInterest(key);
+}
+
+// associa botões
+document.getElementById('btn-jardinagem')
+        .addEventListener('click', () => toggleInterest('jardinagem'));
+document.getElementById('btn-fotografia')
+        .addEventListener('click', () => toggleInterest('fotografia'));
+
+// inicialização
+renderInterest('jardinagem');
+renderInterest('fotografia');
+
+
   </script>
 </body>
 </html>
