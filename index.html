@@ -44,6 +44,14 @@
     transform: translateX(-50%); width: 50%; height: 4px;
     background: var(--accent); border-radius: 2px;
   }
+  a {
+  text-decoration: none;  /* tira o sublinhado */
+  color: inherit;         /* herda a cor do elemento pai */
+}
+a {
+  text-decoration: none;  /* tira o sublinhado */
+  color: inherit;         /* herda a cor do elemento pai */
+}
 
   /* CARD & BUTTON */
   .card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; transition: transform .2s; }
@@ -105,18 +113,45 @@
     top: 50%; left: 50%; transform: translate(-50%, -50%);
   }
 
+  /* 1) Cada coluna estica para ter a mesma altura */
+.tab-pane .row > .col-md-4 {
+  display: flex;
+  align-items: stretch;
+}
+
+/* 2) Cada card vira um flex‐container em coluna */
+.tab-pane .row > .col-md-4 .card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* 3) O botão (ou link-botão) vai para a base do card */
+.tab-pane .row > .col-md-4 .card .btn {
+  margin-top: auto;
+}
+
+/* Limita o tamanho máximo dos cards */
+#workshopsView .card,
+#professionalsView .card {
+  max-width: 280px;   /* ajuste esse valor até ficar do seu gosto */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
   /* BUTTON SPACING IN CARDS */
   .card .card-actions { display: flex; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
   .card .card-actions .btn { flex: 1; }
   </style>
 </head>
 <body>
-  <nav class="navbar bg-light">
+  <!--<nav class="navbar bg-light">
     <div class="container">
       <button class="btn btn-secondary" onclick="location.href='auth.html'">Cadastrar Gestor</button>
     </div>
   </nav>
-  
+-->
 
   <!-- Image Preview Modal -->
   <div class="modal fade" id="imageModal" tabindex="-1">
@@ -131,7 +166,9 @@
   </div>
 
   <div class="container py-5">
-    <h1 class="text-center mb-5">ConectaCom</h1>
+      <h1 class="text-center mb-5">
+  Conect<span class="text-gray">+</span>
+</h1>
     <ul class="nav nav-tabs justify-content-center mb-4">
       <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#listView">Lista</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#calendarView">Calendário</button></li>
@@ -186,33 +223,42 @@
 <div class="tab-pane fade" id="workshopsView">
   <div class="container py-4">
     <h3 class="mb-3">Workshops</h3>
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <!-- Tricô (aberto) -->
       <div class="col-md-4 mb-4">
         <div class="card p-3">
           <img src="imagens/trico.png" class="card-img-top mb-3" alt="Tricô">
           <h5 class="card-title">Workshop de Tricô</h5>
           <p>Aprenda pontos básicos e projetos simples de tricô.</p>
-          <button class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#workshopModal"
-                  data-type="Tricô">
-            Inscrever
-          </button>
+          <p>Horario das Aulas:</p>
+    <p>• Terça-feira das 7:00 as 9:00</p>
+    <p>• Sexta-feira das 13:00 as 15:00</p>
+          <!-- HTML -->
+<a id="registerBtnTrico"
+   href="https://chat.whatsapp.com/GlOpyNZDg1LE2uS7M2abcE"
+   target="_blank"
+   class="btn btn-primary w-100 text-center">
+  Inscrever
+</a>
+
+
         </div>
       </div>
       <!-- Pintura (aberto) -->
       <div class="col-md-4 mb-4">
         <div class="card p-3">
           <img src="imagens/pintura.png" class="card-img-top mb-3" alt="Pintura">
-          <h5 class="card-title">Workshop de Pintura</h5>
+          <h5 class="card-title">Workshop de Pintura (Presencial)</h5>
           <p>Técnicas de aquarela e pintura em tela.</p>
-          <button class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#workshopModal"
-                  data-type="Pintura">
-            Inscrever
-          </button>
+          <p>Horario das Aulas:</p>
+          <p>• Terça-feira das 9:00 as 11:00</p>
+          <p>• Sexta-feira das 15:00 as 17:00</p>
+          <a id="registerBtnPintura"
+   href="https://chat.whatsapp.com/C7rhshFa9tSK9lVvqg7hvq"
+   target="_blank"
+   class="btn btn-primary w-100 text-center">
+  Inscrever
+</a>
         </div>
       </div>
       <!-- Natação (aberto) -->
@@ -221,12 +267,15 @@
           <img src="imagens/natação.png" class="card-img-top mb-3" alt="Natação">
           <h5 class="card-title">Workshop de Natação (Presencial)</h5>
           <p>Aulas de natação adaptadas para 50+.</p>
-          <button class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#workshopModal"
-                  data-type="Natação">
-            Inscrever
-          </button>
+          <p>Horário das Aulas:</p>
+          <p>• Segunda-feira das 14:00 às 16:00</p>
+          <p>• Quarta-feira das 10:00 às 12:00</p>
+          <a id="registerBtnNatacao"
+   href="https://chat.whatsapp.com/Fw6BQgzX5meFWRzPcVOE2J"
+   target="_blank"
+   class="btn btn-primary w-100 text-center">
+  Inscrever
+</a>
         </div>
       </div>
       <!-- Jardinagem (fechado) -->
@@ -271,10 +320,12 @@
       <div class="tab-pane fade" id="professionalsView">
         <div class="container py-4">
           <h3 class="mb-3">Profissionais</h3>
-          <div class="row">
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <!-- Nutricionista -->
             <div class="col-md-4">
               <div class="card p-3">
+                <img src="imagens/nutricionista.png" alt="">
+                <br>
                 <h5 class="card-title">Nutricionista</h5>
                 <p>Orientação alimentar específica para a terceira idade.</p>
                 <button class="btn btn-success"
@@ -288,6 +339,8 @@
             <!-- Fisioterapeuta -->
             <div class="col-md-4">
               <div class="card p-3">
+                <img src="imagens/fisioterapeuta.png" alt="">
+                <br>
                 <h5 class="card-title">Fisioterapeuta</h5>
                 <p>Exercícios e reabilitação motora.</p>
                 <button class="btn btn-success"
@@ -301,7 +354,23 @@
             <!-- Geriatra -->
             <div class="col-md-4">
               <div class="card p-3">
+                <img src="imagens/geriatra.png" alt="">
+                <br>
                 <h5 class="card-title">Geriatra</h5>
+                <p>Acompanhamento de saúde geral do idoso.</p>
+                <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#professionalModal"
+                        data-type="Geriatra">
+                  Contratar
+                </button>
+              </div>
+            </div>
+             <div class="col-md-4">
+              <div class="card p-3">
+                <img src="imagens/psicologo.png" alt="">
+                <br>
+                <h5 class="card-title">Psicólogo</h5>
                 <p>Acompanhamento de saúde geral do idoso.</p>
                 <button class="btn btn-success"
                         data-bs-toggle="modal"
@@ -380,6 +449,39 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Load events
+    // Defina no topo do seu <script>
+const ADMIN_ID   = 'ADMIN';
+const ADMIN_PASS = 'minhaSenhaSuperSecreta';
+
+// No listener de confirmação de exclusão:
+document.getElementById('confirmDelete').addEventListener('click', () => {
+  const id   = document.getElementById('delId').value.trim();
+  const pass = document.getElementById('delPass').value;
+
+  // usuário comum
+  const u = users.find(u => u.id === id && u.pass === pass);
+
+  // se for admin válido, force o u como “verdadeiro”
+  const isAdmin = (id === ADMIN_ID && pass === ADMIN_PASS);
+
+  if (!u && !isAdmin) {
+    return alert('Credenciais inválidas');
+  }
+
+  const eid = document.getElementById('delEventId').value;
+  const ev  = events.find(e => e.id === eid);
+
+  // dono do evento ou admin podem apagar
+  if (!isAdmin && ev.managerId !== id) {
+    return alert('Sem autorização');
+  }
+
+  // faz a remoção
+  events = events.filter(e => e.id !== eid);
+  saveAll();
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+});
+
     let events = JSON.parse(localStorage.getItem('events')||'[]').map(e=>(
       { ...e, addedToCalendar: e.addedToCalendar || false }
     ));
@@ -716,6 +818,43 @@ document.getElementById('btn-fotografia')
 renderInterest('jardinagem');
 renderInterest('fotografia');
 
+// JavaScript (no final do seu <script>)
+
+// Tricô
+let isTrico = false;
+document.getElementById('registerBtnTrico').addEventListener('click', e => {
+  e.preventDefault();
+  window.open(e.currentTarget.href, '_blank');
+  if (!isTrico) {
+    isTrico = true;
+    e.currentTarget.textContent = 'Inscrito';
+    e.currentTarget.classList.replace('btn-primary', 'btn-success');
+  }
+});
+
+// Pintura
+let isPintura = false;
+document.getElementById('registerBtnPintura').addEventListener('click', e => {
+  e.preventDefault();
+  window.open(e.currentTarget.href, '_blank');
+  if (!isPintura) {
+    isPintura = true;
+    e.currentTarget.textContent = 'Inscrito';
+    e.currentTarget.classList.replace('btn-primary', 'btn-success');
+  }
+});
+
+// Natação
+let isNatacao = false;
+document.getElementById('registerBtnNatacao').addEventListener('click', e => {
+  e.preventDefault();
+  window.open(e.currentTarget.href, '_blank');
+  if (!isNatacao) {
+    isNatacao = true;
+    e.currentTarget.textContent = 'Inscrito';
+    e.currentTarget.classList.replace('btn-primary', 'btn-success');
+  }
+});
 
   </script>
 </body>
