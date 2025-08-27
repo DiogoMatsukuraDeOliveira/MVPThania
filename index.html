@@ -81,6 +81,47 @@ a {
   #eventModal .modal-body .mb-3 { margin-bottom:1.25rem; }
   #eventModal .form-label { font-weight:500; }
   #eventModal .modal-footer { padding:1rem 1.5rem; border-top:none; display:flex; justify-content:flex-end; gap:0.5rem; }
+  /* ===== Candidate modal com a mesma estética do Event modal ===== */
+#candidateModal .modal-dialog {
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+#candidateModal .modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+#candidateModal .modal-header {
+  background: var(--primary);
+  color: #fff;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+#candidateModal .modal-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+#candidateModal .modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+#candidateModal .modal-body .row > .col {
+  margin-bottom: 1rem;
+}
+#candidateModal .modal-body .mb-3 {
+  margin-bottom: 1.25rem;
+}
+#candidateModal .form-label {
+  font-weight: 500;
+}
+#candidateModal .modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
 
   /* MAP */
   #mapContainer { display: flex; height: 500px; }
@@ -146,6 +187,14 @@ a {
   </style>
 </head>
 <body>
+  <body>
+  <!-- Botão Auth no topo -->
+  <div class="position-fixed top-0 start-0 m-3" style="z-index:1050">
+    <a href="auth.html" class="btn btn-outline-primary btn-sm">
+      Área do Gestor
+    </a>
+  </div>
+
   <!--<nav class="navbar bg-light">
     <div class="container">
       <button class="btn btn-secondary" onclick="location.href='auth.html'">Cadastrar Gestor</button>
@@ -228,9 +277,9 @@ a {
       <div class="col-md-4 mb-4">
         <div class="card p-3">
           <img src="imagens/trico.png" class="card-img-top mb-3" alt="Tricô">
-          <h5 class="card-title">Workshop de Tricô</h5>
+          <h5 class="card-title" style="font-weight: bold;">Workshop de Tricô</h5>
           <p>Aprenda pontos básicos e projetos simples de tricô.</p>
-          <p>Horario das Aulas:</p>
+          <p style="font-weight: bold;">Horario das Aulas:</p>
     <p>• Terça-feira das 7:00 as 9:00</p>
     <p>• Sexta-feira das 13:00 as 15:00</p>
           <!-- HTML -->
@@ -248,9 +297,9 @@ a {
       <div class="col-md-4 mb-4">
         <div class="card p-3">
           <img src="imagens/pintura.png" class="card-img-top mb-3" alt="Pintura">
-          <h5 class="card-title">Workshop de Pintura (Presencial)</h5>
+          <h5 class="card-title" style="font-weight: bold;">Workshop de Pintura (Presencial)</h5>
           <p>Técnicas de aquarela e pintura em tela.</p>
-          <p>Horario das Aulas:</p>
+          <p style="font-weight: bold;">Horario das Aulas:</p>
           <p>• Terça-feira das 9:00 as 11:00</p>
           <p>• Sexta-feira das 15:00 as 17:00</p>
           <a id="registerBtnPintura"
@@ -265,9 +314,9 @@ a {
       <div class="col-md-4 mb-4">
         <div class="card p-3">
           <img src="imagens/natação.png" class="card-img-top mb-3" alt="Natação">
-          <h5 class="card-title">Workshop de Natação (Presencial)</h5>
+          <h5 class="card-title" style="font-weight: bold;">Workshop de Natação (Presencial)</h5>
           <p>Aulas de natação adaptadas para 50+.</p>
-          <p>Horário das Aulas:</p>
+          <p style="font-weight: bold;">Horário das Aulas:</p>
           <p>• Segunda-feira das 14:00 às 16:00</p>
           <p>• Quarta-feira das 10:00 às 12:00</p>
           <a id="registerBtnNatacao"
@@ -282,7 +331,7 @@ a {
 <div class="col-md-4 mb-4">
   <div class="card p-3 position-relative">
     <img src="imagens/jardinagem.png" class="card-img-top mb-3" alt="Jardinagem">
-    <h5 class="card-title">Workshop de Jardinagem</h5>
+    <h5 class="card-title" style="font-weight: bold;">Workshop de Jardinagem</h5>
     <p>Montagem de hortinha em vasos e cuidados básicos.</p>
     <div class="mb-2">
       <div class="progress">
@@ -298,7 +347,7 @@ a {
 <div class="col-md-4 mb-4">
   <div class="card p-3 position-relative">
     <img src="imagens/fotografia.png" class="card-img-top mb-3" alt="Fotografia">
-    <h5 class="card-title">Workshop de Fotografia</h5>
+    <h5 class="card-title" style="font-weight: bold;">Workshop de Fotografia</h5>
     <p>Fundamentos de composição, luz e enquadramento.</p>
     <div class="mb-2">
       <div class="progress">
@@ -315,76 +364,20 @@ a {
     </div>
   </div>
 </div>
-      <!-- Profissionais -->
-      <div class="tab-pane fade" id="professionalsView">
-        <div class="container py-0">
-          <h3 class="mb-3">Profissionais</h3>
-          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <!-- Nutricionista -->
-            <div class="col-md-4">
-              <div class="card p-3">
-                <img src="imagens/nutricionista.png" alt="">
-                <br>
-                <h5 class="card-title">Nutricionista</h5>
-                <p>Orientação alimentar específica para a terceira idade.</p>
-                <button class="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#professionalModal"
-                        data-type="Nutricionista">
-                  Contratar
-                </button>
-              </div>
-            </div>
-            <!-- Fisioterapeuta -->
-            <div class="col-md-4">
-              <div class="card p-3">
-                <img src="imagens/fisioterapeuta.png" alt="">
-                <br>
-                <h5 class="card-title">Fisioterapeuta</h5>
-                <p>Exercícios e reabilitação motora.</p>
-                <button class="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#professionalModal"
-                        data-type="Fisioterapeuta">
-                  Contratar
-                </button>
-              </div>
-            </div>
-            <!-- Geriatra -->
-            <div class="col-md-4">
-              <div class="card p-3">
-                <img src="imagens/geriatra.png" alt="">
-                <br>
-                <h5 class="card-title">Geriatra</h5>
-                <p>Acompanhamento de saúde geral do idoso.</p>
-                <button class="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#professionalModal"
-                        data-type="Geriatra">
-                  Contratar
-                </button>
-              </div>
-            </div>
-             <div class="col-md-4">
-              <div class="card p-3">
-                <img src="imagens/psicologo.png" alt="">
-                <br>
-                <h5 class="card-title">Psicólogo</h5>
-                <p>Acompanhamento de saúde geral do idoso.</p>
-                <button class="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#professionalModal"
-                        data-type="Geriatra">
-                  Contratar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+          <!-- Profissionais -->
+<div class="tab-pane fade" id="professionalsView">
+  <div class="container py-0">
 
+    <!-- cabeçalho idêntico ao da aba Lista -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="mb-0">Profissionais</h3>
+      <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#candidateModal">
+        + Me candidatar
+      </button>
     </div>
-  </div>
+
+    <!-- cards APROVADOS aparecem aqui (via JS) -->
+    <div id="approvedProfessionals" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"></div>
 
   <!-- Event Modal -->
   <div class="modal fade" id="eventModal" tabindex="-1">
@@ -430,29 +423,263 @@ a {
     </div></div>
   </div>
 
-  <!-- Calendar Events Modal -->
+    <!-- Calendar Events Modal -->
   <div class="modal fade" id="calendarEventModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Eventos em <span id="modalDateTitle"></span></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body" id="calendarCardsContainer"></div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button></div>
+        ...
       </div>
     </div>
   </div>
 
+  <!-- Candidate Modal -->
+<div class="modal fade" id="candidateModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form id="candidateForm" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Candidatar-se como Profissional</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Foto (PNG/JPG)</label>
+          <input type="file" id="candPhoto" class="form-control" accept="image/*" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nome completo</label>
+          <input type="text" id="candName" class="form-control" required />
+        </div>
+        <div class="mb-3 row">
+          <div class="col">
+            <label class="form-label">Idade</label>
+            <input type="number" id="candAge" class="form-control" min="16" max="120" required />
+          </div>
+          <div class="col">
+            <label class="form-label">Ocupação</label>
+            <input type="text" id="candOccupation" class="form-control" placeholder="Ex.: Nutricionista" required />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Descrição breve</label>
+          <textarea id="candBio" class="form-control" rows="3" placeholder="Experiências, especialidades, região de atendimento..."></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contato (WhatsApp/E-mail)</label>
+          <input type="text" id="candContact" class="form-control" placeholder="(43) 9xxxx-xxxx ou email@exemplo.com" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Currículo (PDF)</label>
+          <input type="file" id="candCV" class="form-control" accept="application/pdf" required />
+          <small class="text-muted">O arquivo fica salvo localmente (este MVP usa localStorage).</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" type="submit">Enviar candidatura</button>
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Load events
-    // Defina no topo do seu <script>
+/* =========================
+   Constantes e Estado Base
+   ========================= */
 const ADMIN_ID   = 'ADMIN';
 const ADMIN_PASS = 'minhaSenhaSuperSecreta';
 
-// No listener de confirmação de exclusão:
+let events = JSON.parse(localStorage.getItem('events')||'[]').map(e => ({
+  ...e,
+  addedToCalendar: e.addedToCalendar || false
+}));
+
+const users = JSON.parse(localStorage.getItem('users')||'[]');
+
+const form           = document.getElementById('eventForm'),
+      cardsContainer = document.getElementById('cardsContainer'),
+      searchInput    = document.getElementById('searchInput'),
+      managerFilter  = document.getElementById('managerFilter'),
+      mapSearch      = document.getElementById('mapSearch'),
+      mapList        = document.getElementById('mapSidebarList'),
+      mapIframe      = document.getElementById('mapIframe'),
+      placeholder    = document.getElementById('mapPlaceholder'),
+      calendarEl     = document.getElementById('calendar');
+
+// calendário (mês/ano corrente)
+let currentYear, currentMonth;
+const monthLabel = document.getElementById('monthLabel'),
+      prevBtn    = document.getElementById('prevMonth'),
+      nextBtn    = document.getElementById('nextMonth');
+
+
+/* =========================
+   Helpers de Persistência
+   ========================= */
+function saveAll() {
+  localStorage.setItem('events', JSON.stringify(events));
+  renderAll();
+}
+
+function getProfessionals() {
+  return JSON.parse(localStorage.getItem('professionals') || '[]');
+}
+function saveProfessionals(list) {
+  localStorage.setItem('professionals', JSON.stringify(list));
+}
+
+
+/* =========================
+   Renderizações Principais
+   ========================= */
+function renderAll() {
+  renderCards();
+  renderCalendar();
+}
+
+function renderCards() {
+  cardsContainer.innerHTML = '';
+  events
+    .filter(ev =>
+      (ev.title.toLowerCase().includes(searchInput.value.toLowerCase()) || ev.date.includes(searchInput.value)) &&
+      ev.managerId.toLowerCase().includes(managerFilter.value.toLowerCase())
+    )
+    .forEach(ev => {
+      const col = document.createElement('div');
+      col.className = 'col-md-6';
+      const imgHTML = ev.imageData
+        ? `<img src="${ev.imageData}" class="card-img-top mb-3" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-src="${ev.imageData}"/>`
+        : '';
+      col.innerHTML = `
+        <div class="card p-3">
+          ${imgHTML}
+          <h5 class="card-title">${ev.title}</h5>
+          <p class="mb-1"><strong>Data:</strong> ${ev.date} ${ev.time}</p>
+          <p class="mb-1"><strong>Local:</strong>
+            <a href="#" class="location-link" onclick="focusEvent('${ev.id}')">${ev.fullAddress||'—'}</a>
+          </p>
+          <p class="mb-1"><strong>Gestor:</strong> ${ev.managerId}</p>
+          <p>${ev.description||''}</p>
+          <div class="card-actions">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="askDelete('${ev.id}')">Excluir</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="toggleCalendar('${ev.id}')">
+              ${ev.addedToCalendar ? 'Remover do calendário' : 'Adicionar ao calendário'}
+            </button>
+          </div>
+        </div>`;
+      cardsContainer.appendChild(col);
+    });
+}
+
+function renderCalendar() {
+  calendarEl.innerHTML = '';
+
+  const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  monthLabel.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+
+  // cabeçalho
+  ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d => {
+    const hd = document.createElement('div');
+    hd.className = 'day header';
+    hd.textContent = d;
+    calendarEl.appendChild(hd);
+  });
+
+  // slots vazios antes do primeiro dia
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'day inactive';
+    calendarEl.appendChild(cell);
+  }
+
+  // dias
+  for (let date = 1; date <= daysInMonth; date++) {
+    const cell = document.createElement('div');
+    cell.className = 'day';
+    const isoDate = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
+    cell.dataset.date = isoDate;
+    cell.innerHTML = `<div class="date-number">${date}</div>`;
+    const evs = events.filter(e => e.addedToCalendar && e.date === isoDate);
+    if (evs.length) {
+      const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
+    }
+    cell.addEventListener('click', () => { if (evs.length) showCalendarEvents(isoDate); });
+    calendarEl.appendChild(cell);
+  }
+}
+
+function renderSidebar() {
+  mapList.innerHTML = '';
+  events
+    .filter(ev => ev.title.toLowerCase().includes(mapSearch.value.toLowerCase()))
+    .forEach(ev => {
+      const item = document.createElement('div'); item.className = 'list-group-item d-flex align-items-center';
+      item.innerHTML = `
+        ${ev.imageData ? `<img src="${ev.imageData}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;" class="me-3"/>` : ''}
+        <div><strong>${ev.title}</strong><br/><small>${ev.date} ${ev.time}</small></div>`;
+      item.onclick = () => focusEvent(ev.id);
+      mapList.appendChild(item);
+    });
+}
+
+
+/* =========================
+   Ações de Eventos / Mapa
+   ========================= */
+function toggleCalendar(id) {
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+  ev.addedToCalendar = !ev.addedToCalendar;
+  saveAll();
+}
+
+function showCalendarEvents(date) {
+  const evs = events.filter(e => e.addedToCalendar && e.date === date);
+  const container = document.getElementById('calendarCardsContainer');
+  container.innerHTML = '';
+  evs.forEach(ev => {
+    const card = document.createElement('div'); card.className = 'card mb-3';
+    const row = document.createElement('div'); row.className = 'row g-0';
+    const imgCol = document.createElement('div'); imgCol.className = 'col-md-4';
+    imgCol.innerHTML = ev.imageData ? `<img src="${ev.imageData}" class="img-fluid rounded-start"/>` : '';
+    const bodyCol = document.createElement('div'); bodyCol.className = 'col-md-8';
+    bodyCol.innerHTML = `
+      <div class="card-body">
+        <h5 class="card-title">${ev.title}</h5>
+        <p class="card-text"><strong>Data:</strong> ${ev.date}</p>
+        <p class="card-text"><strong>Hora:</strong> ${ev.time}</p>
+        ${ev.description ? `<p class="card-text"><strong>Descrição:</strong> ${ev.description}</p>` : ''}
+      </div>`;
+    row.append(imgCol, bodyCol); card.appendChild(row); container.appendChild(card);
+  });
+  document.getElementById('modalDateTitle').textContent = date;
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('calendarEventModal')).show();
+}
+
+function focusEvent(id) {
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+  const q = encodeURIComponent(ev.fullAddress + ', Londrina-PR, Brasil');
+  mapIframe.src = `https://maps.google.com/maps?q=${q}&output=embed`;
+  placeholder.style.display = 'none';
+  mapIframe.style.display = 'block';
+}
+
+function askDelete(id) {
+  document.getElementById('delEventId').value = id;
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).show();
+}
+
+
+/* ==================================
+   Exclusão com autenticação + ADMIN
+   (remove duplicidade de listeners)
+   ================================== */
 document.getElementById('confirmDelete').addEventListener('click', () => {
   const id   = document.getElementById('delId').value.trim();
   const pass = document.getElementById('delPass').value;
@@ -460,7 +687,7 @@ document.getElementById('confirmDelete').addEventListener('click', () => {
   // usuário comum
   const u = users.find(u => u.id === id && u.pass === pass);
 
-  // se for admin válido, force o u como “verdadeiro”
+  // admin pode apagar tudo
   const isAdmin = (id === ADMIN_ID && pass === ADMIN_PASS);
 
   if (!u && !isAdmin) {
@@ -470,302 +697,82 @@ document.getElementById('confirmDelete').addEventListener('click', () => {
   const eid = document.getElementById('delEventId').value;
   const ev  = events.find(e => e.id === eid);
 
-  // dono do evento ou admin podem apagar
-  if (!isAdmin && ev.managerId !== id) {
+  // dono do evento ou admin
+  if (!isAdmin && ev?.managerId !== id) {
     return alert('Sem autorização');
   }
 
-  // faz a remoção
+  // remove
   events = events.filter(e => e.id !== eid);
   saveAll();
   bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
 });
 
-    let events = JSON.parse(localStorage.getItem('events')||'[]').map(e=>(
-      { ...e, addedToCalendar: e.addedToCalendar || false }
-    ));
-    const users = JSON.parse(localStorage.getItem('users')||'[]');
-    const form = document.getElementById('eventForm'),
-          cardsContainer = document.getElementById('cardsContainer'),
-          searchInput = document.getElementById('searchInput'),
-          managerFilter = document.getElementById('managerFilter'),
-          mapSearch = document.getElementById('mapSearch'),
-          mapList = document.getElementById('mapSidebarList'),
-          mapIframe = document.getElementById('mapIframe'),
-          placeholder = document.getElementById('mapPlaceholder'),
-          calendarEl = document.getElementById('calendar');
 
-    // Month navigation state
-    let currentYear, currentMonth;
-    const monthLabel = document.getElementById('monthLabel'),
-          prevBtn     = document.getElementById('prevMonth'),
-          nextBtn     = document.getElementById('nextMonth');
+/* ==================================
+   Profissionais (candidatura + lista)
+   ================================== */
+function formatContactLink(input='') {
+  const s = input.trim();
+  if (!s) return '#';
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Set logged-in manager
-      document.getElementById('managerId').value = localStorage.getItem('currentUser');
+  // email
+  if (s.includes('@')) return `mailto:${s}`;
 
-
-      const currentUser = localStorage.getItem('currentUser');
-     if (!currentUser) {
-  alert("Você precisa estar logado para criar eventos.");
-  location.href = 'auth.html'; // ou qualquer rota de login
-}
-document.getElementById('managerId').value = currentUser;
-
-      // Initialize current month/year
-      const now = new Date();
-      currentYear  = now.getFullYear();
-      currentMonth = now.getMonth();
-
-      // Initial render
-      renderAll();
-
-      // Month navigation handlers
-      prevBtn.addEventListener('click', () => {
-        if (currentMonth === 0) {
-          currentMonth = 11; currentYear--;
-        } else {
-          currentMonth--;
-        }
-        renderAll();
-      });
-      nextBtn.addEventListener('click', () => {
-        if (currentMonth === 11) {
-          currentMonth = 0; currentYear++;
-        } else {
-          currentMonth++;
-        }
-        renderAll();
-      });
-
-      // Map sidebar
-      document.querySelector('[data-bs-target="#mapView"]').addEventListener('shown.bs.tab', () => {
-        renderSidebar();
-        placeholder.style.display = 'flex';
-        mapIframe.style.display = 'none';
-      });
-      mapSearch.addEventListener('input', renderSidebar);
-
-      // CEP lookup
-      document.getElementById('cep').addEventListener('blur', async () => {
-        const cep = document.getElementById('cep').value.replace(/\D/g, '');
-        if (cep.length === 8) {
-          const d = await (await fetch(`https://viacep.com.br/ws/${cep}/json/`)).json();
-          if (!d.erro) {
-            document.getElementById('address').value = `${d.logradouro}, ${d.bairro}, ${d.localidade}-${d.uf}`;
-          }
-        }
-      });
-
-      // Image preview modal
-      const imgModal = document.getElementById('imageModal');
-      imgModal.addEventListener('show.bs.modal', event => {
-        document.getElementById('modalImage').src = event.relatedTarget.getAttribute('data-image-src');
-      });
-    });
-
-    function saveAll() {
-      localStorage.setItem('events', JSON.stringify(events));
-      renderAll();
-    }
-
-    function renderAll() {
-      renderCards();
-      renderCalendar();
-    }
-
-    function renderCards() {
-      cardsContainer.innerHTML = '';
-      events.filter(ev =>
-        (ev.title.toLowerCase().includes(searchInput.value.toLowerCase()) || ev.date.includes(searchInput.value)) &&
-        ev.managerId.toLowerCase().includes(managerFilter.value.toLowerCase())
-      ).forEach(ev => {
-        const col = document.createElement('div');
-        col.className = 'col-md-6';
-        const imgHTML = ev.imageData
-          ? `<img src="${ev.imageData}" class="card-img-top mb-3" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-src="${ev.imageData}"/>`
-          : '';
-        col.innerHTML = `
-          <div class="card p-3">
-            ${imgHTML}
-            <h5 class="card-title">${ev.title}</h5>
-            <p class="mb-1"><strong>Data:</strong> ${ev.date} ${ev.time}</p>
-            <p class="mb-1"><strong>Local:</strong>
-              <a href="#" class="location-link" onclick="focusEvent('${ev.id}')">${ev.fullAddress||'—'}</a>
-            </p>
-            <p class="mb-1"><strong>Gestor:</strong> ${ev.managerId}</p>
-            <p>${ev.description}</p>
-            <div class="card-actions">
-              <button type="button" class="btn btn-outline-danger btn-sm" onclick="askDelete('${ev.id}')">Excluir</button>
-              <button type="button" class="btn btn-primary btn-sm" onclick="toggleCalendar('${ev.id}')">${ev.addedToCalendar ? 'Remover do calendário' : 'Adicionar ao calendário'}</button>
-            </div>
-          </div>`;
-        cardsContainer.appendChild(col);
-      });
-    }
-
-    function toggleCalendar(id) {
-      const ev = events.find(e => e.id === id);
-      if (!ev) return;
-      ev.addedToCalendar = !ev.addedToCalendar;
-      saveAll();
-    }
-
-    function renderCalendar() {
-      calendarEl.innerHTML = '';
-
-      // Atualiza label de mês/ano
-      const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-      monthLabel.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-
-      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-      const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
-
-      // Cabeçalhos de dias da semana
-      ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d => {
-        const hd = document.createElement('div');
-        hd.className = 'day header';
-        hd.textContent = d;
-        calendarEl.appendChild(hd);
-      });
-
-      // Slots vazios antes do primeiro dia
-      for (let i = 0; i < firstDay; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'day inactive';
-        calendarEl.appendChild(cell);
-      }
-
-      // Dias do mês
-      for (let date = 1; date <= daysInMonth; date++) {
-        const cell = document.createElement('div');
-        cell.className = 'day';
-        const isoDate = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
-        cell.dataset.date = isoDate;
-        cell.innerHTML = `<div class="date-number">${date}</div>`;
-        const evs = events.filter(e => e.addedToCalendar && e.date === isoDate);
-        if (evs.length) {
-          const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
-        }
-        cell.addEventListener('click', () => { if (evs.length) showCalendarEvents(isoDate); });
-        calendarEl.appendChild(cell);
-      }
-    }
-
-    function showCalendarEvents(date) {
-      const evs = events.filter(e => e.addedToCalendar && e.date === date);
-      const container = document.getElementById('calendarCardsContainer');
-      container.innerHTML = '';
-      evs.forEach(ev => {
-        const card = document.createElement('div'); card.className = 'card mb-3';
-        const row = document.createElement('div'); row.className = 'row g-0';
-        const imgCol = document.createElement('div'); imgCol.className = 'col-md-4';
-        imgCol.innerHTML = ev.imageData ? `<img src="${ev.imageData}" class="img-fluid rounded-start"/>` : '';
-        const bodyCol = document.createElement('div'); bodyCol.className = 'col-md-8';
-        bodyCol.innerHTML = `
-          <div class="card-body">
-            <h5 class="card-title">${ev.title}</h5>
-            <p class="card-text"><strong>Data:</strong> ${ev.date}</p>
-            <p class="card-text"><strong>Hora:</strong> ${ev.time}</p>
-            ${ev.description ? `<p class="card-text"><strong>Descrição:</strong> ${ev.description}</p>` : ''}
-          </div>`;
-        row.append(imgCol, bodyCol); card.appendChild(row); container.appendChild(card);
-      });
-      document.getElementById('modalDateTitle').textContent = date;
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('calendarEventModal')).show();
-    }
-
-    function renderSidebar() {
-      mapList.innerHTML = '';
-      events.filter(ev => ev.title.toLowerCase().includes(mapSearch.value.toLowerCase()))
-        .forEach(ev => {
-          const item = document.createElement('div'); item.className = 'list-group-item d-flex align-items-center';
-          item.innerHTML = `
-            ${ev.imageData ? `<img src="${ev.imageData}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;" class="me-3"/>` : ''}
-            <div><strong>${ev.title}</strong><br/><small>${ev.date} ${ev.time}</small></div>`;
-          item.onclick = () => focusEvent(ev.id);
-          mapList.appendChild(item);
-        });
-    }
-
-    function focusEvent(id) {
-      const ev = events.find(e => e.id === id);
-      if (!ev) return;
-      const q = encodeURIComponent(ev.fullAddress + ', Londrina-PR, Brasil');
-      mapIframe.src = `https://maps.google.com/maps?q=${q}&output=embed`;
-      placeholder.style.display = 'none';
-      mapIframe.style.display = 'block';
-    }
-
-    function askDelete(id) {
-      document.getElementById('delEventId').value = id;
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).show();
-    }
-
-    document.getElementById('confirmDelete').addEventListener('click', () => {
-      const id = document.getElementById('delId').value.trim();
-      const pass = document.getElementById('delPass').value;
-      const u = users.find(u => u.id === id && u.pass === pass);
-      if (!u) return alert('Credenciais inválidas');
-      const eid = document.getElementById('delEventId').value;
-      const ev = events.find(e => e.id === eid);
-      if (ev.managerId !== id) return alert('Sem autorização');
-      events = events.filter(e => e.id !== eid);
-      saveAll();
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
-    });
-
-    form.addEventListener('submit', async e => {
-  e.preventDefault();
-  // Validação do ID do gestor
-  const managerId = document.getElementById('managerId').value.trim();
-  if (!managerId) {
-    return alert("O campo ID do Gestor é obrigatório.");
+  // tenta WhatsApp
+  const digits = s.replace(/\D/g, '');
+  if (digits.length >= 10) {
+    const withCountry = digits.startsWith('55') ? digits : '55' + digits;
+    return `https://wa.me/${withCountry}`;
   }
+  return '#';
+}
 
-  const gestorExiste = users.find(u => u.id === managerId);
-  if (!gestorExiste) {
-    return alert("ID do Gestor não encontrado. Por favor, cadastre primeiro.");
-  } 
-  const id = Date.now().toString();
-      if (document.getElementById('imageFile').files.length) {
-        imageData = await new Promise(r => {
-          const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(document.getElementById('imageFile').files[0]);
-        });
-      }
-      const addr = document.getElementById('address').value;
-      const num = document.getElementById('numero').value.trim();
-      const fullAddress = num ? `${addr}, ${num}` : addr;
-      let lat, lng;
-      try {
-        const query = `${fullAddress}, Londrina-PR, Brasil`;
-        const data = await (await fetch(`https://nominatim.openstreetmap.org/search?format=json&countrycodes=br&limit=1&q=${encodeURIComponent(query)}`)).json();
-        if (data.length) { lat = parseFloat(data[0].lat); lng = parseFloat(data[0].lon); }
-        else { lat = -23.30445; lng = -51.16211; }
-      } catch {
-        lat = -23.30445; lng = -51.16211;
-      }
-      const ev = { id, imageData, title: document.getElementById('title').value.trim(), date: document.getElementById('date').value, time: document.getElementById('time').value, fullAddress, lat, lng, managerId: document.getElementById('managerId').value, description: document.getElementById('description').value.trim(), addedToCalendar: false };
-      events.push(ev);
-      saveAll();
-      form.reset();
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('eventModal')).hide();
-    });
+function renderApprovedProfessionals() {
+  const grid = document.getElementById('approvedProfessionals');
+  if (!grid) return;
+  grid.innerHTML = '';
 
-    searchInput.addEventListener('input', renderCards);
-    managerFilter.addEventListener('input', renderCards);
+  const approved = getProfessionals().filter(p => p.approved === true);
+  approved.forEach(p => {
+    const col = document.createElement('div');
+    col.className = 'col';
 
-  // mínimo para abrir turma
+    col.innerHTML = `
+      <div class="card p-3">
+        ${p.photoData ? `<img src="${p.photoData}" alt="${p.name}" class="card-img-top mb-3">` : ''}
+        <h2 style="font-weight: bold;">${p.name}</h2>
+        <h5 class="card-title">${p.occupation}${p.age ? ` • ${p.age} anos` : ''}</h5>
+        <p>${p.bio ? p.bio : ''}</p>
+        <div class="card-actions">
+          ${p.contact ? `<a href="${formatContactLink(p.contact)}" target="_blank" class="btn btn-success">Contratar</a>` : ''}
+          ${p.cvData ? `<a href="${p.cvData}" download="${(p.name || 'curriculo')}.pdf" class="btn btn-outline-primary">Baixar CV</a>` : ''}
+        </div>
+      </div>
+    `;
+    grid.appendChild(col);
+  });
+}
+
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = reject;
+    fr.readAsDataURL(file);
+  });
+}
+
+
+/* =========================
+   Workshops (interesse/inscrição)
+   ========================= */
 const MIN_INTEREST = 10;
-
-// carrega ou inicializa
 const interest = {
   jardinagem: parseInt(localStorage.getItem('int-jardinagem')) || 0,
   fotografia: parseInt(localStorage.getItem('int-fotografia')) || 0
 };
 
-// atualiza UI (barra, contador, texto do botão)
 function renderInterest(key) {
   const cnt   = interest[key];
   const pct   = Math.min(100, (cnt / MIN_INTEREST) * 100);
@@ -773,6 +780,8 @@ function renderInterest(key) {
   const count = document.getElementById(`count-${key}`);
   const bar   = document.getElementById(`bar-${key}`);
   const clicked = localStorage.getItem(`clicked-${key}`) === '1';
+
+  if (!btn || !count || !bar) return;
 
   count.textContent = cnt;
   bar.style.width  = pct + '%';
@@ -788,73 +797,228 @@ function renderInterest(key) {
   }
 }
 
-// ao clicar, toggle interesse
 function toggleInterest(key) {
   const isClicked = localStorage.getItem(`clicked-${key}`) === '1';
 
   if (isClicked) {
-    // retirar interesse
     interest[key] = Math.max(0, interest[key] - 1);
     localStorage.setItem(`clicked-${key}`, '0');
   } else {
-    // adicionar interesse
     interest[key] = Math.min(MIN_INTEREST, interest[key] + 1);
     localStorage.setItem(`clicked-${key}`, '1');
   }
 
-  // salva novo valor
   localStorage.setItem(`int-${key}`, interest[key]);
   renderInterest(key);
 }
 
-// associa botões
-document.getElementById('btn-jardinagem')
-        .addEventListener('click', () => toggleInterest('jardinagem'));
-document.getElementById('btn-fotografia')
-        .addEventListener('click', () => toggleInterest('fotografia'));
 
-// inicialização
-renderInterest('jardinagem');
-renderInterest('fotografia');
-
-// JavaScript (no final do seu <script>)
-
-// Tricô
-let isTrico = false;
-document.getElementById('registerBtnTrico').addEventListener('click', e => {
-  e.preventDefault();
-  window.open(e.currentTarget.href, '_blank');
-  if (!isTrico) {
-    isTrico = true;
-    e.currentTarget.textContent = 'Inscrito';
-    e.currentTarget.classList.replace('btn-primary', 'btn-success');
+/* =========================
+   Bootstrap & Inicialização
+   ========================= */
+document.addEventListener('DOMContentLoaded', () => {
+  // Autenticação mínima para criar eventos
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) {
+    alert("Você precisa estar logado para criar eventos.");
+    location.href = 'auth.html';
+    return;
   }
-});
+  const managerIdInput = document.getElementById('managerId');
+  if (managerIdInput) managerIdInput.value = currentUser;
 
-// Pintura
-let isPintura = false;
-document.getElementById('registerBtnPintura').addEventListener('click', e => {
-  e.preventDefault();
-  window.open(e.currentTarget.href, '_blank');
-  if (!isPintura) {
-    isPintura = true;
-    e.currentTarget.textContent = 'Inscrito';
-    e.currentTarget.classList.replace('btn-primary', 'btn-success');
-  }
-});
+  // mês/ano corrente
+  const now = new Date();
+  currentYear  = now.getFullYear();
+  currentMonth = now.getMonth();
 
-// Natação
-let isNatacao = false;
-document.getElementById('registerBtnNatacao').addEventListener('click', e => {
-  e.preventDefault();
-  window.open(e.currentTarget.href, '_blank');
-  if (!isNatacao) {
-    isNatacao = true;
-    e.currentTarget.textContent = 'Inscrito';
-    e.currentTarget.classList.replace('btn-primary', 'btn-success');
-  }
-});
+  // render inicial
+  renderAll();
+  renderApprovedProfessionals();
 
-  </script>
+  // navegação mês
+  prevBtn?.addEventListener('click', () => {
+    if (currentMonth === 0) {
+      currentMonth = 11; currentYear--;
+    } else {
+      currentMonth--;
+    }
+    renderAll();
+  });
+  nextBtn?.addEventListener('click', () => {
+    if (currentMonth === 11) {
+      currentMonth = 0; currentYear++;
+    } else {
+      currentMonth++;
+    }
+    renderAll();
+  });
+
+  // Mapa (carregar ao abrir aba)
+  document.querySelector('[data-bs-target="#mapView"]')?.addEventListener('shown.bs.tab', () => {
+    renderSidebar();
+    if (placeholder) placeholder.style.display = 'flex';
+    if (mapIframe) mapIframe.style.display = 'none';
+  });
+  mapSearch?.addEventListener('input', renderSidebar);
+
+  // CEP → viaCEP
+  document.getElementById('cep')?.addEventListener('blur', async () => {
+    const cep = document.getElementById('cep').value.replace(/\D/g, '');
+    if (cep.length === 8) {
+      const d = await (await fetch(`https://viacep.com.br/ws/${cep}/json/`)).json();
+      if (!d.erro) {
+        document.getElementById('address').value = `${d.logradouro}, ${d.bairro}, ${d.localidade}-${d.uf}`;
+      }
+    }
+  });
+
+  // Modal de imagem (preview)
+  const imgModal = document.getElementById('imageModal');
+  imgModal?.addEventListener('show.bs.modal', event => {
+    const src = event.relatedTarget?.getAttribute('data-image-src');
+    if (src) document.getElementById('modalImage').src = src;
+  });
+
+  // Submissão de novo evento
+  form?.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    // valida gestor
+    const managerId = document.getElementById('managerId').value.trim();
+    if (!managerId) return alert("O campo ID do Gestor é obrigatório.");
+    const gestorExiste = users.find(u => u.id === managerId);
+    if (!gestorExiste) return alert("ID do Gestor não encontrado. Por favor, cadastre primeiro.");
+
+    const id = Date.now().toString();
+
+    // imagem do evento
+    let imageData = null;
+    const imgInput = document.getElementById('imageFile');
+    if (imgInput?.files?.length) {
+      imageData = await fileToDataURL(imgInput.files[0]);
+    }
+
+    const addr = document.getElementById('address').value;
+    const num  = document.getElementById('numero').value.trim();
+    const fullAddress = num ? `${addr}, ${num}` : addr;
+
+    let lat, lng;
+    try {
+      const query = `${fullAddress}, Londrina-PR, Brasil`;
+      const data = await (await fetch(`https://nominatim.openstreetmap.org/search?format=json&countrycodes=br&limit=1&q=${encodeURIComponent(query)}`)).json();
+      if (data.length) { lat = parseFloat(data[0].lat); lng = parseFloat(data[0].lon); }
+      else { lat = -23.30445; lng = -51.16211; }
+    } catch {
+      lat = -23.30445; lng = -51.16211;
+    }
+
+    const ev = {
+      id,
+      imageData,
+      title: document.getElementById('title').value.trim(),
+      date:  document.getElementById('date').value,
+      time:  document.getElementById('time').value,
+      fullAddress,
+      lat, lng,
+      managerId,
+      description: document.getElementById('description').value.trim(),
+      addedToCalendar: false
+    };
+
+    events.push(ev);
+    saveAll();
+    form.reset();
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('eventModal')).hide();
+  });
+
+  // Filtros lista
+  searchInput?.addEventListener('input', renderCards);
+  managerFilter?.addEventListener('input', renderCards);
+
+  // Workshops: interesse
+  document.getElementById('btn-jardinagem')?.addEventListener('click', () => toggleInterest('jardinagem'));
+  document.getElementById('btn-fotografia')?.addEventListener('click', () => toggleInterest('fotografia'));
+  renderInterest('jardinagem');
+  renderInterest('fotografia');
+
+  // Workshops: inscrição (mudança de rótulo)
+  let isTrico=false, isPintura=false, isNatacao=false;
+  document.getElementById('registerBtnTrico')?.addEventListener('click', e => {
+    e.preventDefault();
+    window.open(e.currentTarget.href, '_blank');
+    if (!isTrico) {
+      isTrico = true;
+      e.currentTarget.textContent = 'Inscrito';
+      e.currentTarget.classList.replace('btn-primary', 'btn-success');
+    }
+  });
+  document.getElementById('registerBtnPintura')?.addEventListener('click', e => {
+    e.preventDefault();
+    window.open(e.currentTarget.href, '_blank');
+    if (!isPintura) {
+      isPintura = true;
+      e.currentTarget.textContent = 'Inscrito';
+      e.currentTarget.classList.replace('btn-primary', 'btn-success');
+    }
+  });
+  document.getElementById('registerBtnNatacao')?.addEventListener('click', e => {
+    e.preventDefault();
+    window.open(e.currentTarget.href, '_blank');
+    if (!isNatacao) {
+      isNatacao = true;
+      e.currentTarget.textContent = 'Inscrito';
+      e.currentTarget.classList.replace('btn-primary', 'btn-success');
+    }
+  });
+
+  /* ===== Candidatura de Profissionais (form do modal) ===== */
+  const candidateForm = document.getElementById('candidateForm');
+  candidateForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const photoFile   = document.getElementById('candPhoto').files[0];
+    const name        = document.getElementById('candName').value.trim();
+    const age         = parseInt(document.getElementById('candAge').value, 10);
+    const occupation  = document.getElementById('candOccupation').value.trim();
+    const bio         = document.getElementById('candBio').value.trim();
+    const contact     = document.getElementById('candContact').value.trim();
+    const cvFile      = document.getElementById('candCV').files[0];
+
+    if (!photoFile || !name || !occupation || !cvFile) {
+      return alert('Preencha os campos obrigatórios e anexe os arquivos.');
+    }
+    if (cvFile.type !== 'application/pdf') {
+      return alert('O currículo deve estar em PDF.');
+    }
+
+    const photoData = await fileToDataURL(photoFile);
+    const cvData    = await fileToDataURL(cvFile);
+
+    const candidate = {
+      id: 'prof_' + Date.now(),
+      name,
+      age: isNaN(age) ? null : age,
+      occupation,
+      bio,
+      contact,
+      photoData, // base64
+      cvData,    // base64
+      approved: false, // pendente até o admin aprovar no auth.html
+      createdAt: new Date().toISOString()
+    };
+
+    const list = getProfessionals();
+    list.push(candidate);
+    saveProfessionals(list);
+
+    candidateForm.reset();
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('candidateModal')).hide();
+    alert('Candidatura enviada! Aguarde aprovação do gestor.');
+    // não renderiza no grid: só aparece após aprovação (approved=true)
+  });
+});
+</script>
+
 </body>
 </html>
