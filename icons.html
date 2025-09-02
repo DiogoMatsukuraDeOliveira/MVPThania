@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conect+ — UI Kit (Ícones, Sombras, Bordas)</title>
+
+  <!-- Fonte e Ícones (CDN) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #3366CC;
+      --accent:  #FF6F61;
+      --light:   #F7F9FC;
+      --dark:    #1F2A44;
+      --font: 'Montserrat', sans-serif;
+
+      /* Tokens de raio (bordas/formas) */
+      --radius-xl: 50px; /* pills / abas */
+      --radius-lg: 12px; /* cards/modais */
+      --radius-md: 10px; /* botões */
+      --radius-sm: 8px;  /* imagens/iframes */
+      --radius-xs: 6px;  /* inputs/células */
+
+      /* Tokens de sombra (base) */
+      --shadow-surface: 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-nav:     0 4px 12px rgba(0,0,0,0.15);
+      --shadow-focus:   0 0 0 0.2rem rgba(255,111,97,0.25);
+
+      /* Extras para catálogo de sombras */
+      --shadow-sm: 0 2px 6px rgba(15,23,42,.06);
+      --shadow-md: 0 6px 16px rgba(15,23,42,.08);
+      --shadow-lg: 0 12px 28px rgba(15,23,42,.12);
+
+      /* Tokens de borda */
+      --border-soft: #e6e9ef;
+      --border-strong: #cdd5e1;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .container { max-width: 1180px; margin: 40px auto; padding: 0 20px; }
+    h1 { font-weight: 700; color: var(--primary); margin: 0 0 6px; }
+    .subtitle { margin: 0 0 24px; color: #556070; }
+    .section-title { margin: 32px 0 14px; font-size: 20px; font-weight: 700; color: var(--dark); }
+
+    /* Grids / blocos */
+    .block { background:#fff; border:1px solid #eee; border-radius: var(--radius-lg); box-shadow: var(--shadow-surface); padding: 18px; }
+    .grid { display:grid; gap:16px; }
+    .grid.icons { grid-template-columns: repeat( auto-fill, minmax(220px, 1fr) ); }
+    .row { display:flex; gap:16px; flex-wrap:wrap; }
+
+    /* Ícones – cartões */
+    .icon-card { display:flex; align-items:center; gap:14px; border-radius: var(--radius-lg); border:1px solid #eee; box-shadow: var(--shadow-surface); padding:14px; background:#fff; }
+    .icon-demo { width: 84px; display:grid; gap:8px; text-align:center; }
+    .icon-name { font-weight:600; margin:0 0 4px; }
+    .icon-class { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; color:#6b7280; }
+    .icon-usage { font-size: 13px; color:#475569; margin-top:6px; }
+
+    /* Tamanhos e cores de ícone */
+    .icon-size-16 { font-size:16px; }
+    .icon-size-20 { font-size:20px; }
+    .icon-size-24 { font-size:24px; }
+    .icon-size-32 { font-size:32px; }
+    .icon-color-default { color: var(--dark); }
+    .icon-color-primary { color: var(--primary); }
+    .icon-color-accent  { color: var(--accent); }
+    .icon-color-muted   { color: #94a3b8; }
+
+    /* Chip de ícone (pra print bonito) */
+    .icon-chip{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:40px; border-radius:999px;
+      background:#f2f6ff; color:var(--primary); border:1px solid #e6edff;
+    }
+
+    /* Botões (mesmo visual do app) */
+    .btn { border-radius: var(--radius-md); padding: 10px 16px; font-weight:600; border: 1px solid transparent; background:#e9eefc; color: var(--dark); cursor:pointer; transition: background .2s, transform .2s, box-shadow .2s, color .2s; }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .btn-primary, .btn-success { background: var(--primary); color:#fff; border:none; }
+    .btn-primary:hover, .btn-success:hover { background:#274b8a; transform: translateY(-1px); }
+    .btn-outline-primary { background:#fff; color: var(--primary); border-color: var(--primary); }
+    .btn-outline-primary:hover { background: var(--primary); color:#fff; }
+    .btn-outline-danger { background:#fff; color: var(--accent); border-color: var(--accent); }
+    .btn-outline-danger:hover { background: var(--accent); color:#fff; }
+    .btn-secondary { background:#fff; color:#334155; border-color:#cbd5e1; }
+    .btn-secondary:hover { background:#f1f5f9; }
+    .btn-ghost { background: transparent; color: var(--dark); }
+    .btn-ghost:hover { background: rgba(51,102,204,0.08); }
+    .btn-sm { padding: 6px 10px; font-size: 14px; }
+    .btn-lg { padding: 12px 18px; font-size: 16px; }
+    .btn .bi { margin-right: 8px; }
+
+    /* Nav Tabs (index/auth) */
+    .nav { display:flex; gap:8px; align-items:center; }
+    .nav-tabs { border-bottom: none; justify-content: flex-start; }
+    .nav-tabs .nav-link {
+      position: relative; display: inline-flex; align-items:center; gap:8px;
+      padding: 10px 24px; border: none; border-radius: var(--radius-xl);
+      background: transparent; color: var(--dark); font-weight:600; cursor:pointer;
+      transition: background-color .3s, transform .2s, box-shadow .2s, color .3s;
+    }
+    .nav-tabs .nav-link:hover { background: rgba(51,102,204,0.1); transform: translateY(-2px); }
+    .nav-tabs .nav-link.active { background: var(--primary); color: #fff; box-shadow: var(--shadow-nav); }
+    .nav-tabs .nav-link.active::after { content:''; position:absolute; bottom:-4px; left:50%; transform:translateX(-50%); width:50%; height:4px; background: var(--accent); border-radius:2px; }
+
+    /* Inputs (animação de foco) */
+    .field { display:grid; gap:6px; }
+    .field label { font-weight:600; color:#334155; }
+    .form-control {
+      border-radius: var(--radius-xs); padding: 10px; border: 1px solid #ccc;
+      transition: border-color .2s, box-shadow .2s, transform .12s ease-out;
+      background:#fff; color:#0f172a; outline:none;
+    }
+    .form-control:focus { border-color: var(--accent); box-shadow: var(--shadow-focus); transform: translateY(-1px); }
+    .hint { font-size:12px; color:#64748b; }
+
+    /* Cards de exemplo */
+    .card { border: none; border-radius: var(--radius-lg); box-shadow: var(--shadow-surface); background:#fff; overflow:hidden; }
+    .card .media { width:100%; height:160px; background:#eef2ff; display:flex; align-items:center; justify-content:center; color:#64748b; font-weight:600; border-bottom:1px solid #eef; }
+    .card .body { padding:14px; }
+    .badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:6px 10px; background:#f2f6ff; color:#304e93; border:1px solid #e6edff; font-weight:600; }
+    .badge .bi{ margin-right:6px; }
+
+    /* Catálogo de sombras */
+    .swatch-shadow{
+      width: 220px; height: 120px; border-radius: 12px; background:#fff;
+      border:1px solid var(--border-soft);
+      display:flex; align-items:center; justify-content:center; font-weight:700;
+    }
+    .shadow-sm  { box-shadow: var(--shadow-sm); }
+    .shadow-md  { box-shadow: var(--shadow-md); }
+    .shadow-lg  { box-shadow: var(--shadow-lg); }
+    .shadow-nav { box-shadow: var(--shadow-nav); }
+    .shadow-surface { box-shadow: var(--shadow-surface); }
+    .focus-ring { box-shadow: var(--shadow-focus); border-color: var(--accent); }
+
+    /* Catálogo de bordas/formas */
+    .swatch-radius{
+      width: 220px; height: 120px; background:#fff; border:1px solid var(--border-soft);
+      display:flex; align-items:center; justify-content:center; font-weight:700;
+    }
+    .radius-xs { border-radius: var(--radius-xs); }
+    .radius-sm { border-radius: var(--radius-sm); }
+    .radius-md { border-radius: var(--radius-md); }
+    .radius-lg { border-radius: var(--radius-lg); }
+    .radius-xl { border-radius: var(--radius-xl); }
+    .radius-full { border-radius: 999px; }
+
+    .border-soft { border:1px solid var(--border-soft); }
+    .border-strong { border:2px solid var(--border-strong); }
+
+    /* utilitários */
+    .mb-0{margin-bottom:0}.mb-1{margin-bottom:6px}.mb-2{margin-bottom:10px}.mb-3{margin-bottom:14px}.mb-4{margin-bottom:18px}
+    .mt-2{margin-top:10px}.mt-3{margin-top:14px}
+    .flex{display:flex}.gap-2{gap:8px}.gap-3{gap:12px}.center{align-items:center}
+
+    /* impressão */
+    @media print {
+      .block, .icon-card { box-shadow: none; border-color:#ddd; }
+      body{ background:#fff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Conect+ — UI Kit (Ícones, Sombras, Bordas)</h1>
+    <p class="subtitle">Catálogo visual padronizado conforme o app em HTML/CSS/JS. Use estas seções para tirar os prints da entrega.</p>
+
+    <!-- 1) ÍCONES PRINCIPAIS -->
+    <h2 class="section-title">1) Catálogo de Ícones (outline)</h2>
+    <div class="grid icons">
+      <!-- Navegação principal -->
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-list icon-size-24"></i><i class="bi bi-list icon-size-20"></i></div><div><p class="icon-name">Lista</p><p class="icon-class">bi bi-list</p><p class="icon-usage">Aba de listagem</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-calendar3 icon-size-24"></i><i class="bi bi-calendar3 icon-size-20"></i></div><div><p class="icon-name">Calendário</p><p class="icon-class">bi bi-calendar3</p><p class="icon-usage">Visão mensal</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-map icon-size-24"></i><i class="bi bi-map icon-size-20"></i></div><div><p class="icon-name">Mapa</p><p class="icon-class">bi bi-map</p><p class="icon-usage">Localização de eventos</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-palette icon-size-24"></i><i class="bi bi-palette icon-size-20"></i></div><div><p class="icon-name">Workshops</p><p class="icon-class">bi bi-palette</p><p class="icon-usage">Oficinas/cursos</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-people icon-size-24"></i><i class="bi bi-people icon-size-20"></i></div><div><p class="icon-name">Profissionais</p><p class="icon-class">bi bi-people</p><p class="icon-usage">Listagem/contratação</p></div></div>
+
+      <!-- Ações -->
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-plus-lg icon-size-24"></i><i class="bi bi-plus-lg icon-size-20"></i></div><div><p class="icon-name">Adicionar</p><p class="icon-class">bi bi-plus-lg</p><p class="icon-usage">Criar evento</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-trash icon-size-24"></i><i class="bi bi-trash icon-size-20"></i></div><div><p class="icon-name">Excluir</p><p class="icon-class">bi bi-trash</p><p class="icon-usage">Remover item</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-check2 icon-size-24"></i><i class="bi bi-check2 icon-size-20"></i></div><div><p class="icon-name">Confirmar</p><p class="icon-class">bi bi-check2</p><p class="icon-usage">Salvar/OK</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-x-lg icon-size-24"></i><i class="bi bi-x-lg icon-size-20"></i></div><div><p class="icon-name">Fechar/Cancelar</p><p class="icon-class">bi bi-x-lg</p><p class="icon-usage">Fechar modal/cancelar</p></div></div>
+
+      <!-- Metadados -->
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-clock icon-size-24"></i><i class="bi bi-clock icon-size-20"></i></div><div><p class="icon-name">Horário</p><p class="icon-class">bi bi-clock</p><p class="icon-usage">Hora do evento</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-geo-alt icon-size-24"></i><i class="bi bi-geo-alt icon-size-20"></i></div><div><p class="icon-name">Localização</p><p class="icon-class">bi bi-geo-alt</p><p class="icon-usage">Endereço / mapa</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-search icon-size-24"></i><i class="bi bi-search icon-size-20"></i></div><div><p class="icon-name">Busca</p><p class="icon-class">bi bi-search</p><p class="icon-usage">Campos de pesquisa</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-filter icon-size-24"></i><i class="bi bi-filter icon-size-20"></i></div><div><p class="icon-name">Filtro</p><p class="icon-class">bi bi-filter</p><p class="icon-usage">Refinar listagem</p></div></div>
+
+      <!-- Auth / contato / upload -->
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-box-arrow-in-right icon-size-24"></i><i class="bi bi-box-arrow-in-right icon-size-20"></i></div><div><p class="icon-name">Login</p><p class="icon-class">bi bi-box-arrow-in-right</p><p class="icon-usage">Entrar</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-person-plus icon-size-24"></i><i class="bi bi-person-plus icon-size-20"></i></div><div><p class="icon-name">Cadastro</p><p class="icon-class">bi bi-person-plus</p><p class="icon-usage">Criar conta</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-shield-lock icon-size-24"></i><i class="bi bi-shield-lock icon-size-20"></i></div><div><p class="icon-name">Admin</p><p class="icon-class">bi bi-shield-lock</p><p class="icon-usage">Aprovação (gestor)</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-file-earmark-pdf icon-size-24"></i><i class="bi bi-file-earmark-pdf icon-size-20"></i></div><div><p class="icon-name">PDF</p><p class="icon-class">bi bi-file-earmark-pdf</p><p class="icon-usage">Currículo</p></div></div>
+      <div class="icon-card"><div class="icon-demo"><i class="bi bi-image icon-size-24"></i><i class="bi bi-image icon-size-20"></i></div><div><p class="icon-name">Imagem</p><p class="icon-class">bi bi-image</p><p class="icon-usage">Mídia do evento</p></div></div>
+    </div>
+
+    <!-- 1A) VARIAÇÕES DOS ÍCONES -->
+    <h3 class="section-title">1A) Variações de Ícones (tamanhos & cores)</h3>
+    <div class="block">
+      <div class="row">
+        <div class="icon-card" style="flex:1 1 260px; min-width:260px;">
+          <div class="icon-demo">
+            <i class="bi bi-calendar3 icon-size-16 icon-color-default"></i>
+            <i class="bi bi-calendar3 icon-size-20 icon-color-default"></i>
+            <i class="bi bi-calendar3 icon-size-24 icon-color-default"></i>
+            <i class="bi bi-calendar3 icon-size-32 icon-color-default"></i>
+          </div>
+          <div>
+            <p class="icon-name">Tamanhos</p>
+            <p class="icon-usage">16 / 20 / 24 / 32 px</p>
+          </div>
+        </div>
+
+        <div class="icon-card" style="flex:1 1 260px; min-width:260px;">
+          <div class="icon-demo">
+            <i class="bi bi-geo-alt icon-size-24 icon-color-default"></i>
+            <i class="bi bi-geo-alt icon-size-24 icon-color-primary"></i>
+            <i class="bi bi-geo-alt icon-size-24 icon-color-accent"></i>
+            <i class="bi bi-geo-alt icon-size-24 icon-color-muted"></i>
+          </div>
+          <div>
+            <p class="icon-name">Cores / Estado</p>
+            <p class="icon-usage">Padrão · Primário · Acento · Desabilitado</p>
+          </div>
+        </div>
+
+        <div class="icon-card" style="flex:1 1 260px; min-width:260px;">
+          <div class="icon-demo">
+            <span class="icon-chip"><i class="bi bi-search"></i></span>
+            <span class="icon-chip" style="background:#fff3f0; color:var(--accent); border-color:#ffd9d2"><i class="bi bi-trash"></i></span>
+            <span class="icon-chip" style="background:#eef7ff; color:#1d4ed8; border-color:#dbeafe"><i class="bi bi-download"></i></span>
+          </div>
+          <div>
+            <p class="icon-name">Em chips</p>
+            <p class="icon-usage">Para listas e tabelas</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <p class="hint"><strong>Mapa de uso dos ícones no app</strong></p>
+        <ul style="margin:0; padding-left:18px; line-height:1.7">
+          <li><b>Abas (index):</b> Lista <code>bi-list</code>, Calendário <code>bi-calendar3</code>, Mapa <code>bi-map</code>, Workshops <code>bi-palette</code>, Profissionais <code>bi-people</code></li>
+          <li><b>Ações:</b> Novo Evento <code>bi-plus-lg</code>, Excluir <code>bi-trash</code>, Salvar <code>bi-check2</code>, Cancelar <code>bi-x-lg</code>, Baixar PDF <code>bi-download</code></li>
+          <li><b>Metadados:</b> Hora <code>bi-clock</code>, Local <code>bi-geo-alt</code>, Busca <code>bi-search</code>, Filtro <code>bi-filter</code></li>
+          <li><b>Auth:</b> Login <code>bi-box-arrow-in-right</code>, Cadastro <code>bi-person-plus</code>, Aprovação/Admin <code>bi-shield-lock</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2) BOTÕES (INDEX & AUTH) -->
+    <h2 class="section-title">2) Botões do app (Index & Auth)</h2>
+    <div class="block">
+      <div class="row">
+        <button class="btn btn-primary btn-lg"><i class="bi bi-plus-lg"></i>Novo Evento</button>
+        <button class="btn btn-success btn-lg"><i class="bi bi-check2"></i>Salvar</button>
+        <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i>Excluir</button>
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-download"></i>Baixar PDF</button>
+        <button class="btn btn-secondary btn-sm"><i class="bi bi-x-lg"></i>Cancelar</button>
+        <button class="btn btn-ghost btn-sm"><i class="bi bi-eye"></i>Pré-visualizar</button>
+      </div>
+      <div class="row mt-3">
+        <button class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i>Entrar</button>
+        <button class="btn btn-primary"><i class="bi bi-person-plus"></i>Cadastrar</button>
+        <button class="btn btn-outline-danger"><i class="bi bi-shield-lock"></i>Sair do modo admin</button>
+      </div>
+      <p class="hint mt-2">Hover eleva o botão (transform) e altera cor, como no app.</p>
+    </div>
+
+    <!-- 3) ABAS (INDEX & AUTH) -->
+    <h2 class="section-title">3) Navegação por Abas (Index & Auth)</h2>
+    <div class="block">
+      <div class="nav nav-tabs" id="demoTabs">
+        <button class="nav-link active"><i class="bi bi-list"></i> Lista</button>
+        <button class="nav-link"><i class="bi bi-calendar3"></i> Calendário</button>
+        <button class="nav-link"><i class="bi bi-map"></i> Mapa</button>
+        <button class="nav-link"><i class="bi bi-palette"></i> Workshops</button>
+        <button class="nav-link"><i class="bi bi-people"></i> Profissionais</button>
+      </div>
+      <p class="hint mt-2">A aba ativa recebe <em>background</em> primário, sombra forte e sublinhado com a cor de acento.</p>
+
+      <div class="nav nav-tabs mt-3" id="authTabs">
+        <button class="nav-link active"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+        <button class="nav-link"><i class="bi bi-person-plus"></i> Cadastro</button>
+        <button class="nav-link" disabled><i class="bi bi-shield-lock"></i> Aprovação</button>
+      </div>
+    </div>
+
+    <!-- 4) CAMPOS DE TEXTO -->
+    <h2 class="section-title">4) Campos de texto (com animação de foco)</h2>
+    <div class="block">
+      <div class="row">
+        <div class="field" style="flex:1 1 260px; min-width:260px;">
+          <label>Título</label>
+          <input class="form-control" type="text" placeholder="Digite o título do evento" />
+          <span class="hint">Transição de borda e <em>focus ring</em> com a cor de acento.</span>
+        </div>
+        <div class="field" style="flex:1 1 200px; min-width:200px;">
+          <label>Data</label>
+          <input class="form-control" type="date" />
+        </div>
+        <div class="field" style="flex:1 1 200px; min-width:200px;">
+          <label>Hora</label>
+          <input class="form-control" type="time" />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="field" style="flex:2 1 360px; min-width:320px;">
+          <label>Endereço</label>
+          <input class="form-control" type="text" value="Rua Exemplo, 123 — Londrina/PR" />
+        </div>
+        <div class="field" style="flex:1 1 220px; min-width:220px;">
+          <label>CEP</label>
+          <input class="form-control" type="text" placeholder="00000-000" />
+        </div>
+        <div class="field" style="flex:1 1 160px; min-width:160px;">
+          <label>Número</label>
+          <input class="form-control" type="text" placeholder="123" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 5) CARDS -->
+    <h2 class="section-title">5) Cartões (cards) e superfícies</h2>
+    <div class="block">
+      <div class="row">
+        <div class="card" style="width: 320px;">
+          <div class="media" style="border-radius: var(--radius-sm) var(--radius-sm) 0 0;">Imagem (radius 8px)</div>
+          <div class="body">
+            <h3 class="mb-1" style="margin:0; font-size:18px;">Workshop de Tricô</h3>
+            <p class="mb-1"><span class="badge"><i class="bi bi-clock"></i> Ter 7:00–9:00</span></p>
+            <p class="mb-3" style="margin:0; color:#475569;">Aprenda pontos básicos e projetos simples de tricô.</p>
+            <div class="row">
+              <button class="btn btn-primary"><i class="bi bi-whatsapp"></i>Inscrever</button>
+              <button class="btn btn-outline-primary"><i class="bi bi-geo-alt"></i>Ver no mapa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="hint mt-2">Cards usam <code>box-shadow: var(--shadow-surface)</code> e <code>border-radius: 12px</code>; imagens/iframes usam <code>8px</code>.</p>
+    </div>
+
+    <!-- 6) TABELA -->
+    <h2 class="section-title">6) Tabela compacta (Aprovação — Auth)</h2>
+    <div class="block">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:1px solid #eee">
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Foto</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Nome</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Idade</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Ocupação</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Contato</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Currículo</th>
+            <th style="text-align:left; padding:10px 12px; color:#334155;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #eee">
+            <td style="padding:10px 12px;"><div class="badge"><i class="bi bi-person"></i> JPG</div></td>
+            <td style="padding:10px 12px;"><strong>Maria Silva</strong></td>
+            <td style="padding:10px 12px;">62</td>
+            <td style="padding:10px 12px;">Fisioterapeuta</td>
+            <td style="padding:10px 12px;"><span class="badge"><i class="bi bi-whatsapp"></i> (43) 9....</span></td>
+            <td style="padding:10px 12px;"><button class="btn btn-outline-primary btn-sm"><i class="bi bi-file-earmark-pdf"></i>Baixar PDF</button></td>
+            <td style="padding:10px 12px;" class="flex gap-2 center">
+              <button class="btn btn-primary btn-sm"><i class="bi bi-check2"></i>Aprovar</button>
+              <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i>Reprovar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="hint mt-2">Mantém linguagem visual do app; botões pequenos usam os mesmos tokens.</p>
+    </div>
+
+    <!-- 7) ESTILOS DE SOMBRA (4.1.1.4) -->
+    <h2 class="section-title">7) Estilos de Sombras</h2>
+    <div class="block">
+      <div class="row">
+        <div class="swatch-shadow shadow-sm">shadow-sm</div>
+        <div class="swatch-shadow shadow-md">shadow-md</div>
+        <div class="swatch-shadow shadow-lg">shadow-lg</div>
+      </div>
+      <div class="row mt-3">
+        <div class="swatch-shadow shadow-surface">surface (cards)</div>
+        <div class="swatch-shadow shadow-nav">nav (abas ativas)</div>
+        <div class="swatch-shadow focus-ring">focus ring</div>
+      </div>
+      <p class="hint mt-2">
+        • <b>sm</b> = itens pequenos · <b>md</b> = botões/menus · <b>lg</b> = modais/overlays.<br>
+        • <b>surface</b> = cards padrão · <b>nav</b> = elevação da aba ativa · <b>focus ring</b> = inputs (acento).
+      </p>
+    </div>
+
+    <!-- 8) BORDAS E FORMAS (4.1.1.5) -->
+    <h2 class="section-title">8) Bordas e Formas</h2>
+    <div class="block">
+      <div class="row">
+        <div class="swatch-radius radius-xs">radius-xs (6px)</div>
+        <div class="swatch-radius radius-sm">radius-sm (8px)</div>
+        <div class="swatch-radius radius-md">radius-md (10px)</div>
+      </div>
+      <div class="row mt-3">
+        <div class="swatch-radius radius-lg">radius-lg (12px)</div>
+        <div class="swatch-radius radius-xl">radius-xl (50px)</div>
+        <div class="swatch-radius radius-full">radius-full (circular)</div>
+      </div>
+      <div class="row mt-3">
+        <div class="swatch-radius radius-lg border-soft">border-soft (1px)</div>
+        <div class="swatch-radius radius-lg border-strong">border-strong (2px)</div>
+        <div class="swatch-radius radius-xl border-soft" style="display:flex;gap:10px;flex-direction:column;">
+          <span class="badge"><i class="bi bi-geo-alt"></i> pill (radius-xl)</span>
+          <button class="btn btn-primary" style="border-radius: var(--radius-md);"><i class="bi bi-plus-lg"></i> botão (md)</button>
+        </div>
+      </div>
+      <p class="hint mt-2">
+        • <b>radius-xl</b> = abas/botões pill · <b>radius-lg</b> = cards/modais · <b>radius-xs</b> = inputs.<br>
+        • Bordas: <b>soft</b> (1px) para listas/cards; <b>strong</b> (2px) para destaques.
+      </p>
+    </div>
+
+    <!-- EXTRA: CONTROLES DO CALENDÁRIO -->
+    <h3 class="section-title">Extra) Controles do Calendário</h3>
+    <div class="block">
+      <div class="row">
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-chevron-left"></i> Mês anterior</button>
+        <button class="btn btn-outline-primary btn-sm">Próximo mês <i class="bi bi-chevron-right"></i></button>
+      </div>
+      <p class="hint mt-2">No app, os botões reais usam os mesmos ícones <code>bi-chevron-left/right</code>.</p>
+    </div>
+
+    <p class="hint mt-3">Dica: gere prints por seção (Ícones; Variações; Botões; Abas; Campos; Cards; Tabela; Sombras; Bordas).</p>
+  </div>
+
+  <script>
+    // Toggle demo das abas
+    document.querySelectorAll('#demoTabs .nav-link').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#demoTabs .nav-link').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+    document.querySelectorAll('#authTabs .nav-link:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#authTabs .nav-link').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
